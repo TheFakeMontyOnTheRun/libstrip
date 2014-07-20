@@ -1,5 +1,9 @@
 package br.odb.libstrip;
 
-public interface AbstractTriangle extends IndexedSetFace {
+import br.odb.utils.math.Vec3;
 
+public interface AbstractTriangle extends IndexedSetFace {
+	Vec3 makeNormal();
+	void flatten( float z);
+	void flush();
 }

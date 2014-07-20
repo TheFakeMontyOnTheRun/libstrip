@@ -17,8 +17,8 @@ public class Material {
 	}
 
 	public Material(Material material) {
-		this(material.name, material.mainColor.getR(), material.mainColor
-				.getG(), material.mainColor.getB(), material.mainColor.getA());
+		this(material.name, material.mainColor.r, material.mainColor
+				.g, material.mainColor.b, material.mainColor.a);
 	}
 
 	public Material(String op1) {
