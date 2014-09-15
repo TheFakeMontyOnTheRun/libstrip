@@ -22,7 +22,7 @@ public class Mesh {
 	/**
 	 * 
 	 */
-	private String name;
+	final public String name;
 	/**
 	 * 
 	 */
@@ -38,8 +38,8 @@ public class Mesh {
 	 * 
 	 * @param mesh
 	 */
-	public Mesh(Mesh mesh) {
-
+	public Mesh( String name, Mesh mesh) {
+		this.name = name;
 		solid = mesh.solid;
 		System.out.println("about to copy " + mesh.faces.size() + " faces");
 
@@ -100,6 +100,19 @@ public class Mesh {
 
 		return isEqual;
 	}
+	
+	public Vec3 getCenter() {
+		Vec3 center = new Vec3( points.get(0));
+
+		for (int c = 1; c < points.size(); ++c) {
+			center.set(center.add( points.get(c)));
+		}
+
+		center.scale(1.0f / points.size());
+		
+		return center;
+	}
+	
 
 	private Material getMaterial() {
 		return material;
