@@ -12,10 +12,6 @@ import br.odb.utils.math.Vec3;
  */
 public interface IndexedSetFace {
 
-	public void setVisibility(boolean visibility);
-
-	public boolean getVisibility();
-
 	public IndexedSetFace makeCopy();
 
 	public int getTotalIndexes();

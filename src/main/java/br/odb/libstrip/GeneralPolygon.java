@@ -7,7 +7,6 @@ import br.odb.utils.math.Vec3;
 
 public class GeneralPolygon implements IndexedSetFace {
 
-	private boolean visible = true;
 	private ArrayList<Integer> indexes = new ArrayList<Integer>();
 	private ArrayList<Vec3> vertexes = new ArrayList<Vec3>();
 	private Color color;
@@ -29,16 +28,6 @@ public class GeneralPolygon implements IndexedSetFace {
 		this.material = material;
 	}
 
-	@Override
-	public void setVisibility(boolean visibility) {
-		visible = visibility;
-	}
-
-	@Override
-	public boolean getVisibility() {
-
-		return visible;
-	}
 
 	@Override
 	public IndexedSetFace makeCopy() {
@@ -101,7 +90,6 @@ public class GeneralPolygon implements IndexedSetFace {
 		vertexes.clear();
 		vertexes = null;
 		color = null;
-		material.destroy();
 		material = null;
 	}
 }

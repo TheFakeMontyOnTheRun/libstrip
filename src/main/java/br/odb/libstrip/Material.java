@@ -4,8 +4,8 @@ import br.odb.utils.Color;
 
 public class Material {
 
-	private Color mainColor;
-	private String name;
+	public final Color mainColor;
+	public final String name;
 
 	public Material(String name, int r, int g, int b, int a) {
 		this.name = name;
@@ -23,45 +23,17 @@ public class Material {
 
 	public Material(String op1) {
 		name = op1;
+		mainColor = new Color();
 	}
 
 	public Material(Color color) {
+		name = "(unamed)";
 		mainColor = new Color(color);
 	}
 
-	/**
-	 * @param mainColor
-	 *            the mainColor to set
-	 */
-	public void setMainColor(Color mainColor) {
-		this.mainColor = mainColor;
-	}
-
-	/**
-	 * @return the mainColor
-	 */
-	public Color getMainColor() {
-		return mainColor;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
 	public boolean equals(Material another) {
-		return another.getName().equals(name)
-				&& mainColor.equals(another.getMainColor());
+		return another.name.equals(name)
+				&& mainColor.equals(another.mainColor );
 	}
 
 	@Override
@@ -87,11 +59,5 @@ public class Material {
 
 		return "<Material name: " + name + " mainColor: "
 				+ mainColor.toString() + " />";
-	}
-
-	public void destroy() {
-
-		name = null;
-		mainColor = null;
 	}
 }

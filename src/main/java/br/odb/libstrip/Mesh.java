@@ -1,11 +1,7 @@
 package br.odb.libstrip;
 
-import java.io.BufferedWriter;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import br.odb.utils.Color;
 import br.odb.utils.Utils;
 import br.odb.utils.math.Vec3;
 
@@ -18,11 +14,11 @@ public class Mesh {
 	/**
 	 * 
 	 */
-	public ArrayList<IndexedSetFace> faces;
+	final public ArrayList<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
 	/**
 	 * 
 	 */
-	public ArrayList<Vec3> points;
+	final public ArrayList<Vec3> points = new ArrayList<Vec3>();
 	/**
 	 * 
 	 */
@@ -32,36 +28,11 @@ public class Mesh {
 	 */
 	public Material material;
 	public boolean renderable = true;
-	private boolean solid;
-	private boolean visible = true;
-	public VertexArrayManager manager;
+	public boolean solid = false;
+	public boolean visible = true;
 	private float[] cachedVertexData;
 	private float[] cachedColorData;
 
-	/**
-	 * 
-	 * @param solid
-	 */
-	public void setSolid(boolean solid) {
-		this.solid = solid;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean isSolid() {
-		return solid;
-	}
-
-	/**
-	 * 
-	 */
-	public Mesh() {
-		solid = false;
-		faces = new ArrayList<IndexedSetFace>();
-		points = new ArrayList<Vec3>();
-	}
 
 	/**
 	 * 
@@ -69,12 +40,7 @@ public class Mesh {
 	 */
 	public Mesh(Mesh mesh) {
 
-		// if ( mesh == null )
-
 		solid = mesh.solid;
-
-		faces = new ArrayList<IndexedSetFace>();
-		points = new ArrayList<Vec3>();
 		System.out.println("about to copy " + mesh.faces.size() + " faces");
 
 		for (IndexedSetFace face : mesh.faces) {
@@ -90,7 +56,6 @@ public class Mesh {
 	}
 
 	public Mesh(String name) {
-		this();
 		this.name = name;
 	}
 
@@ -107,107 +72,7 @@ public class Mesh {
 
 	@Override
 	public int hashCode() {
-
 		return toString().hashCode();
-	}
-
-	public void addPoint(float x, float y, float z) {
-		points.add(new Vec3(x, y, z));
-	}
-
-	public static void dumpToViewSVG(ArrayList<Mesh> meshList, OutputStream os) {
-		IndexedSetFace face;
-		Vec3 v = null;
-		int e = 0;
-		Mesh mesh;
-		try {
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-
-			bw.write("<?xml version='1.0' encoding='UTF-8' standalone='no'?>");
-			bw.newLine();
-			bw.write("<svg>");
-			// bw.newLine();
-			//
-			// bw.write("<script type='text/ecmascript'>" +
-			// "<![CDATA[" +
-			// "function echoShape(evt)" +
-			// "{" +
-			// "var rect = evt.getTarget();" +
-			// "alert('rect:' +  rect );" +
-			// "}" +
-			// "function rect_highlight() {" +
-			//
-			// "}" +
-			// "function rect_normal() {" +
-			// "}" +
-			// "// ]]>" +
-			// "</script>"
-			// );
-			bw.newLine();
-			// for every face in the mesh
-			for (int f = 0; f < meshList.size(); ++f) {
-				mesh = meshList.get(f);
-
-				if (!mesh.renderable)
-					continue;
-
-				bw.write("<g id='" + mesh.getName() + "' >");
-				bw.newLine();
-				System.out.println("dumping " + mesh.getName());
-
-				for (int c = 0; c < mesh.faces.size(); ++c) {
-					face = mesh.faces.get(c);
-
-					bw.write("<path ");
-
-					if (mesh.material != null) {
-						bw.write("style='fill:#");
-						bw.write(mesh.material.getMainColor().toString());
-						bw.write("' ");
-					}
-					// bw.write(" onmouseclick='echoShape(evt)'");
-					bw.write(" d='");
-					// for every point in the face
-					for (int d = 0; d < face.getTotalIndexes(); ++d) {
-
-						try {
-							e = face.getIndex(d);
-							v = (mesh.points.get(e));
-						} catch (Exception ex) {
-							ex.printStackTrace();
-						}
-
-						if (d == 0)
-							bw.write("M");
-						else
-							bw.write("L");
-						bw.write(" " + v.x + "," + v.z);
-					}
-
-					bw.write(" z' /> ");
-					bw.newLine();
-				}
-
-				bw.write("</g>");
-				bw.newLine();
-			}
-
-			bw.write("</svg>");
-			bw.newLine();
-
-			bw.close();
-
-		} catch (Exception x) {
-			x.printStackTrace();
-		}
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String text) {
-		name = text;
 	}
 
 	public boolean equals(Mesh another) {
@@ -215,9 +80,9 @@ public class Mesh {
 		int size;
 
 		if (name != null)
-			isEqual = isEqual && name.equals(another.getName());
+			isEqual = isEqual && name.equals(another.name );
 		else
-			isEqual = isEqual && (another.getName() == null);
+			isEqual = isEqual && (another.name == null);
 
 		size = faces.size();
 		for (int c = 0; c < size; ++c) {
@@ -335,52 +200,11 @@ public class Mesh {
 		faces.add(poly);
 	}
 
-	public Mesh makeCopy() {
-		Mesh copy = new Mesh();
-		copy.solid = solid;
-		copy.faces = new ArrayList<IndexedSetFace>();
-
-		for (IndexedSetFace face : faces) {
-			copy.faces.add(face.makeCopy());
-		}
-
-		if (material != null)
-			copy.material = material.makeCopy();
-
-		copy.name = name;
-
-		for (Vec3 vec : points) {
-			copy.points.add(new Vec3(vec));
-		}
-
-		copy.renderable = renderable;
-
-		return copy;
-	}
-
 	public void translate(Vec3 translation) {
 
 		for (Vec3 point : points) {
 			point.set(point.add(translation));
 		}
-
-	}
-
-	public void setVisibility(boolean b) {
-
-		visible = b;
-
-		// for (IndexedSetFace face : faces ) {
-		// face.setVisibility( b );
-		// }
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public int getTotalItems() {
-		return this.faces.size();
 	}
 
 	public float[] getVertexData() {
@@ -435,13 +259,8 @@ public class Mesh {
 			isf.destroy();
 
 		faces.clear();
-		faces = null;
 
 		points.clear();
-		points = null;
-
-		if (material != null)
-			material.destroy();
 
 		material = null;
 
@@ -453,10 +272,5 @@ public class Mesh {
 
 		for (IndexedSetFace isf : otherMesh.faces)
 			addFace(isf);
-	}
-
-	public void preBuffer() {
-		// TODO major code clean up  I sense
-
 	}
 }
