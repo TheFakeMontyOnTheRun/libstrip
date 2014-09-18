@@ -10,24 +10,6 @@ public class GeneralPolygon implements IndexedSetFace {
 	private ArrayList<Integer> indexes = new ArrayList<Integer>();
 	private ArrayList<Vec3> vertexes = new ArrayList<Vec3>();
 	private Color color;
-	private Material material;
-
-	/**
-	 * @return the material
-	 */
-	@Override
-	public final Material getMaterial() {
-		return material;
-	}
-
-	/**
-	 * @param material
-	 *            the material to set
-	 */
-	public final void setMaterial(Material material) {
-		this.material = material;
-	}
-
 
 	@Override
 	public IndexedSetFace makeCopy() {
@@ -46,13 +28,11 @@ public class GeneralPolygon implements IndexedSetFace {
 		return indexes.size();
 	}
 
-	@Override
 	public int getIndex(int d) {
 
 		return indexes.get(d).intValue();
 	}
 
-	@Override
 	public void addIndex(int index) {
 
 		indexes.add(Integer.valueOf(index));
@@ -64,7 +44,7 @@ public class GeneralPolygon implements IndexedSetFace {
 		return vertexes.get(c);
 	}
 
-	@Override
+	
 	public void addVertex(Vec3 v) {
 
 		vertexes.add(v);
@@ -82,7 +62,7 @@ public class GeneralPolygon implements IndexedSetFace {
 		color = c;
 	}
 
-	@Override
+	
 	public void destroy() {
 
 		indexes.clear();
@@ -90,6 +70,5 @@ public class GeneralPolygon implements IndexedSetFace {
 		vertexes.clear();
 		vertexes = null;
 		color = null;
-		material = null;
 	}
 }

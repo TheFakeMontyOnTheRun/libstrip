@@ -1,7 +1,7 @@
 package br.odb.libstrip;
 
 import java.util.ArrayList;
-
+import br.odb.libstrip.GeneralTriangle;
 import br.odb.utils.Utils;
 import br.odb.utils.math.Vec3;
 
@@ -11,21 +11,9 @@ import br.odb.utils.math.Vec3;
  * 
  */
 public class Mesh {
-	/**
-	 * 
-	 */
 	final public ArrayList<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
-	/**
-	 * 
-	 */
 	final public ArrayList<Vec3> points = new ArrayList<Vec3>();
-	/**
-	 * 
-	 */
 	final public String name;
-	/**
-	 * 
-	 */
 	public Material material;
 	public boolean renderable = true;
 	public boolean solid = false;
@@ -33,7 +21,14 @@ public class Mesh {
 	private float[] cachedVertexData;
 	private float[] cachedColorData;
 
-
+	public void clear() {
+		faces.clear();
+		points.clear();
+		cachedColorData = null;
+		cachedVertexData = null;
+	}
+	
+	
 	/**
 	 * 
 	 * @param mesh
@@ -267,9 +262,6 @@ public class Mesh {
 	}
 
 	public void destroy() {
-
-		for (IndexedSetFace isf : faces)
-			isf.destroy();
 
 		faces.clear();
 
