@@ -34,9 +34,10 @@ public class Mesh {
 	 * @param mesh
 	 */
 	public Mesh( String name, Mesh mesh) {
-		this.name = name;
+		
+		this( name );
+
 		solid = mesh.solid;
-		System.out.println("about to copy " + mesh.faces.size() + " faces");
 
 		for (IndexedSetFace face : mesh.faces) {
 			faces.add(face.makeCopy());

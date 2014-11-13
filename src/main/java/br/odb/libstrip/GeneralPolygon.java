@@ -9,7 +9,7 @@ public class GeneralPolygon implements IndexedSetFace {
 
 	private ArrayList<Integer> indexes = new ArrayList<Integer>();
 	private ArrayList<Vec3> vertexes = new ArrayList<Vec3>();
-	private Color color;
+	public Color color = new Color();
 
 	@Override
 	public IndexedSetFace makeCopy() {
