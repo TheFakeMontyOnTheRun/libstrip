@@ -6,28 +6,41 @@ public class Material {
 
 	public final Color mainColor;
 	public final String name;
-
-	public Material(String name, int r, int g, int b, int a) {
+	public final String texture;
+	public final String fragmentShader;
+	public final String vertexShader;
+	
+	public Material(String name, int r, int g, int b, int a, String texture, String vertexShader, String fragmentShader ) {
 		this.name = name;
+		this.texture = texture;
+		this.fragmentShader = fragmentShader;
+		this.vertexShader = vertexShader;		
 		mainColor = new Color(r, g, b, a);
 	}
 
-	public Material(String name, int r, int g, int b) {
-		this(name, r, g, b, 255);
+	public Material(String name, int r, int g, int b, String texture, String vertexShader, String fragmentShader ) {
+		this(name, r, g, b, 255, texture, vertexShader, fragmentShader);
 	}
 
 	public Material(Material material) {
 		this(material.name, material.mainColor.r, material.mainColor
-				.g, material.mainColor.b, material.mainColor.a);
+				.g, material.mainColor.b, material.mainColor.a, material.texture, material.vertexShader, material.fragmentShader);
 	}
 
-	public Material(String op1) {
-		name = op1;
+	public Material(String name, String texture, String vertexShader, String fragmentShader ) {
+		this.name = name;
+		this.texture = texture;
+		this.fragmentShader = fragmentShader;
+		this.vertexShader = vertexShader;
 		mainColor = new Color();
 	}
 
-	public Material(Color color) {
+	public Material(Color color, String texture, String vertexShader, String fragmentShader) {
 		name = "(unamed)";
+		this.texture = texture;
+		this.fragmentShader = fragmentShader;
+		this.vertexShader = vertexShader;
+		
 		mainColor = new Color(color);
 	}
 
