@@ -21,6 +21,17 @@ public class GeneralPolygon implements IndexedSetFace {
 
 		return poly;
 	}
+	
+	@Override
+	public String toString() {
+		String toReturn = "";
+		
+		for ( Vec3 v : vertexes ) {
+			toReturn += "" + v.x + " " + v.y + " " + v.z + "\n";
+		}
+		
+		return toReturn;
+	}
 
 	@Override
 	public int getTotalIndexes() {

@@ -27,15 +27,14 @@ public class Mesh {
 		cachedColorData = null;
 		cachedVertexData = null;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param mesh
 	 */
-	public Mesh( String name, Mesh mesh) {
-		
-		this( name );
+	public Mesh(String name, Mesh mesh) {
+
+		this(name);
 
 		solid = mesh.solid;
 
@@ -60,9 +59,15 @@ public class Mesh {
 	 */
 	@Override
 	public String toString() {
-		String toReturn = "";
-		for (int c = 0; c < faces.size(); ++c)
-			toReturn += "\n" + faces.get(c).toString();
+		String toReturn = "<name>" + name + "</name>\n";
+
+		if ( material != null ) {
+			toReturn += "\n" + material;
+		}
+		
+		for (IndexedSetFace isf : faces) {
+			toReturn += "\n|" + isf;
+		}
 		return toReturn;
 	}
 
@@ -76,7 +81,7 @@ public class Mesh {
 		int size;
 
 		if (name != null)
-			isEqual = isEqual && name.equals(another.name );
+			isEqual = isEqual && name.equals(another.name);
 		else
 			isEqual = isEqual && (another.name == null);
 
@@ -96,19 +101,18 @@ public class Mesh {
 
 		return isEqual;
 	}
-	
+
 	public Vec3 getCenter() {
-		Vec3 center = new Vec3( points.get(0));
+		Vec3 center = new Vec3(points.get(0));
 
 		for (int c = 1; c < points.size(); ++c) {
-			center.set(center.add( points.get(c)));
+			center.set(center.add(points.get(c)));
 		}
 
 		center.scale(1.0f / points.size());
-		
+
 		return center;
 	}
-	
 
 	private Material getMaterial() {
 		return material;
@@ -131,15 +135,14 @@ public class Mesh {
 		}
 	}
 
-	
-	private float snap(float value, int snapLevel ) {
+	private float snap(float value, int snapLevel) {
 		float[] val;
 		float[] dist;
 		int smaller = 0;
 
 		float floor = (float) Math.floor(value);
 
-		switch( snapLevel) {
+		switch (snapLevel) {
 		case 0:
 			return value;
 		case 1:
