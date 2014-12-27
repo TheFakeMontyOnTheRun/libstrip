@@ -21,4 +21,6 @@ public interface IndexedSetFace {
 	public Color getColor();
 
 	public void setColor(Color c);
+	
+	public String toString();
 }

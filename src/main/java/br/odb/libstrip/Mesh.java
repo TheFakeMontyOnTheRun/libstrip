@@ -66,7 +66,7 @@ public class Mesh {
 		}
 		
 		for (IndexedSetFace isf : faces) {
-			toReturn += "\n|" + isf;
+			toReturn += "\n" + isf;
 		}
 		return toReturn;
 	}
