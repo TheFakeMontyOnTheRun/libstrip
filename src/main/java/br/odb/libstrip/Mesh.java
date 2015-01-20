@@ -1,6 +1,8 @@
 package br.odb.libstrip;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import br.odb.libstrip.GeneralTriangle;
 import br.odb.utils.Utils;
 import br.odb.utils.math.Vec3;
@@ -10,7 +12,12 @@ import br.odb.utils.math.Vec3;
  * @author Daniel "Monty" Monteiro
  * 
  */
-public class Mesh {
+public class Mesh implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3375701151469728552L;
+	
 	final public ArrayList<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
 	final public ArrayList<Vec3> points = new ArrayList<Vec3>();
 	final public String name;

@@ -1,9 +1,16 @@
 package br.odb.libstrip;
 
+import java.io.Serializable;
+
 import br.odb.utils.Color;
 
-public class Material {
+public class Material implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6359681992594825126L;
+	
 	public final Color mainColor;
 	public final String name;
 	public final String texture;
