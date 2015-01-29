@@ -2,6 +2,7 @@ package br.odb.libstrip;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.odb.libstrip.GeneralTriangle;
 import br.odb.utils.Utils;
@@ -18,13 +19,10 @@ public class Mesh implements Serializable {
 	 */
 	private static final long serialVersionUID = 3375701151469728552L;
 	
-	final public ArrayList<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
-	final public ArrayList<Vec3> points = new ArrayList<Vec3>();
+	final public List<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
+	final public List<Vec3> points = new ArrayList<Vec3>();
 	final public String name;
 	public Material material;
-	public boolean renderable = true;
-	public boolean solid = false;
-	public boolean visible = true;
 	private float[] cachedVertexData;
 	private float[] cachedColorData;
 
@@ -43,8 +41,6 @@ public class Mesh implements Serializable {
 
 		this(name);
 
-		solid = mesh.solid;
-
 		for (IndexedSetFace face : mesh.faces) {
 			faces.add(face.makeCopy());
 		}
@@ -53,8 +49,9 @@ public class Mesh implements Serializable {
 			points.add(new Vec3(vec));
 		}
 
-		if (mesh.material != null)
+		if (mesh.material != null) {
 			material = new Material(mesh.material);
+		}
 	}
 
 	public Mesh(String name) {
@@ -66,16 +63,19 @@ public class Mesh implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		String toReturn = "<name>" + name + "</name>\n";
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append( "<name>" + name + "</name>\n" );
 
 		if ( material != null ) {
-			toReturn += "\n" + material;
+			sb.append( "\n" + material );
 		}
 		
 		for (IndexedSetFace isf : faces) {
-			toReturn += "\n" + isf;
+			sb.append( "\n" + isf );
 		}
-		return toReturn;
+		return sb.toString();
 	}
 
 	@Override
