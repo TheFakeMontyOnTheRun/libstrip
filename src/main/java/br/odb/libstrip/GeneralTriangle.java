@@ -1,10 +1,13 @@
 package br.odb.libstrip;
 
 import br.odb.utils.Color;
+import br.odb.utils.Direction;
 import br.odb.utils.math.Vec3;
 
 public class GeneralTriangle implements AbstractTriangle {
 
+	public Direction hint;
+	
 	public float r;
 	public float g;
 	public float b;
