@@ -4,7 +4,7 @@ import br.odb.utils.Color;
 import br.odb.utils.Direction;
 import br.odb.utils.math.Vec3;
 
-public class GeneralTriangle implements AbstractTriangle {
+public class GeneralTriangle {
 
 	public Direction hint;
 	
@@ -23,7 +23,6 @@ public class GeneralTriangle implements AbstractTriangle {
 	public float z2;
 
 	public void flush() {
-
 	}
 
 	public float[] singleColorData() {
@@ -34,8 +33,7 @@ public class GeneralTriangle implements AbstractTriangle {
 		return new float[] { x0, y0, z0, x1, y1, z1, x2, y2, z2 };
 	}
 
-	@Override
-	public IndexedSetFace makeCopy() {
+	public GeneralTriangle makeCopy() {
 		
 		GeneralTriangle toReturn = new GeneralTriangle();
 		
@@ -57,12 +55,10 @@ public class GeneralTriangle implements AbstractTriangle {
 		return toReturn;
 	}
 
-	@Override
 	public int getTotalIndexes() {
 		return 3;
 	}
 
-	@Override
 	public Vec3 getVertex(int c) {
 		switch ( c ) {
 		case 0:
@@ -75,12 +71,10 @@ public class GeneralTriangle implements AbstractTriangle {
 		}		
 	}
 
-	@Override
 	public Color getColor() {
 		return new Color( r, g, b, a );
 	}
 
-	@Override
 	public void setColor(Color c) {
 		r = c.r / 255.0f;
 		g = c.g / 255.0f;
@@ -88,7 +82,6 @@ public class GeneralTriangle implements AbstractTriangle {
 		a = c.a / 255.0f;
 	}
 
-	@Override
 	public Vec3 makeNormal() {
 		Vec3 v1 = new Vec3( x1 - x0, y1 - y0, z1 - z0 );
 		Vec3 v2 = new Vec3( x2 - x0, y2 - y0, z2 - z0 );
@@ -96,7 +89,6 @@ public class GeneralTriangle implements AbstractTriangle {
 		return v3;
 	}
 
-	@Override
 	public void flatten(float z) {
 		z0 = z1 = z2 = z;		
 	}

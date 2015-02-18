@@ -1,11 +1,12 @@
-package br.odb.libstrip;
+package br.odb.libstrip.builders;
 
+import br.odb.libstrip.GeneralTriangle;
 import br.odb.utils.Color;
 import br.odb.utils.math.Vec3;
 
-public class GeneralTriangleFactory implements AbstractTriangleFactory {
+public class GeneralTriangleFactory {
 
-	public AbstractTriangle makeTrig(float x, float y, float z, float x2, float y2,
+	public GeneralTriangle makeTrig(float x, float y, float z, float x2, float y2,
 			float z2, float x3, float y3, float z3, int lastColor,
 			Vec3 lightDirection) {
 

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.odb.libstrip.GeneralTriangle;
-import br.odb.utils.Utils;
 import br.odb.utils.math.Vec3;
 
 /**
@@ -19,8 +17,7 @@ public class Mesh implements Serializable {
 	 */
 	private static final long serialVersionUID = 3375701151469728552L;
 	
-	final public List<IndexedSetFace> faces = new ArrayList<IndexedSetFace>();
-	final public List<Vec3> points = new ArrayList<Vec3>();
+	final public List<GeneralTriangle> faces = new ArrayList<GeneralTriangle>();
 	final public String name;
 	public Material material;
 	private float[] cachedVertexData;
@@ -28,7 +25,6 @@ public class Mesh implements Serializable {
 
 	public void clear() {
 		faces.clear();
-		points.clear();
 		cachedColorData = null;
 		cachedVertexData = null;
 	}
@@ -41,12 +37,8 @@ public class Mesh implements Serializable {
 
 		this(name);
 
-		for (IndexedSetFace face : mesh.faces) {
+		for (GeneralTriangle face : mesh.faces) {
 			faces.add(face.makeCopy());
-		}
-
-		for (Vec3 vec : mesh.points) {
-			points.add(new Vec3(vec));
 		}
 
 		if (mesh.material != null) {
@@ -72,7 +64,7 @@ public class Mesh implements Serializable {
 			sb.append( "\n" + material );
 		}
 		
-		for (IndexedSetFace isf : faces) {
+		for (GeneralTriangle isf : faces) {
 			sb.append( "\n" + isf );
 		}
 		return sb.toString();
@@ -80,149 +72,74 @@ public class Mesh implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return toString().hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((faces == null) ? 0 : faces.hashCode());
+		result = prime * result
+				+ ((material == null) ? 0 : material.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
-	public boolean equals(Mesh another) {
-		boolean isEqual = true;
-		int size;
 
-		if (name != null)
-			isEqual = isEqual && name.equals(another.name);
-		else
-			isEqual = isEqual && (another.name == null);
-
-		size = faces.size();
-		for (int c = 0; c < size; ++c) {
-			isEqual = isEqual && faces.get(c).equals(another.getFace(c));
-		}
-		size = points.size();
-		for (int c = 0; c < size; ++c) {
-			isEqual = isEqual && points.get(c).equals(another.getPoint(c));
-		}
-
-		if (material != null)
-			isEqual = isEqual && material.equals(another.getMaterial());
-		else
-			isEqual = isEqual && (material == another.getMaterial());
-
-		return isEqual;
-	}
 
 	public Vec3 getCenter() {
-		Vec3 center = new Vec3(points.get(0));
+		float points = 0;
+		Vec3 center = new Vec3();
 
-		for (int c = 1; c < points.size(); ++c) {
-			center.set(center.add(points.get(c)));
+		for ( GeneralTriangle t : faces ) {
+			
+			center.addTo( t.x0, t.y0, t.z0 );
+			center.addTo( t.x1, t.y1, t.z1 );
+			center.addTo( t.x2, t.y2, t.z2 );			
+			points += 3.0f;
 		}
 
-		center.scale(1.0f / points.size());
+		center.scale( 1.0f / points );
 
 		return center;
 	}
 
-	private Material getMaterial() {
-		return material;
-	}
-
-	public Vec3 getPoint(int c) {
-		return points.get(c);
-	}
-
-	public IndexedSetFace getFace(int c) {
-		return faces.get(c);
-	}
-
+	
 	@Override
-	public boolean equals(Object another) {
-		if (another instanceof Mesh) {
-			return equals((Mesh) another);
-		} else {
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-	}
-
-	private float snap(float value, int snapLevel) {
-		float[] val;
-		float[] dist;
-		int smaller = 0;
-
-		float floor = (float) Math.floor(value);
-
-		switch (snapLevel) {
-		case 0:
-			return value;
-		case 1:
-			// val = new float[ 11 ];
-			// dist = new float[ 11 ];
-			// val[ 0 ] = floor;
-			// dist[ 0 ] = Math.abs( value - val[ 0 ] );
-			// val[ 1 ] = floor + 0.1f;
-			// dist[ 1 ] = Math.abs( value - val[ 1 ] );
-			// val[ 2 ] = floor + 0.2f;
-			// dist[ 2 ] = Math.abs( value - val[ 2 ] );
-			// val[ 3 ] = floor + 0.3f;
-			// dist[ 3 ] = Math.abs( value - val[ 3 ] );
-			// val[ 4 ] = floor + 0.4f;
-			// dist[ 4 ] = Math.abs( value - val[ 4 ] );
-			// val[ 5 ] = floor + 0.5f;
-			// dist[ 5 ] = Math.abs( value - val[ 5 ] );
-			// val[ 6 ] = floor + 0.6f;
-			// dist[ 6 ] = Math.abs( value - val[ 6 ] );
-			// val[ 7 ] = floor + 0.7f;
-			// dist[ 7 ] = Math.abs( value - val[ 7 ] );
-			// val[ 8 ] = floor + 0.8f;
-			// dist[ 8 ] = Math.abs( value - val[ 8 ] );
-			// val[ 9 ] = floor + 0.9f;
-			// dist[ 9 ] = Math.abs( value - val[ 9 ] );
-			// val[ 10 ] = floor + 1.0f;
-			// dist[ 10 ] = Math.abs( value - val[ 10 ] );
-			//
-			// break;
-			// case 2:
-			val = new float[5];
-			dist = new float[5];
-			val[0] = floor;
-			dist[0] = Math.abs(value - val[0]);
-			val[1] = floor + 0.25f;
-			dist[1] = Math.abs(value - val[1]);
-			val[2] = floor + 0.5f;
-			dist[2] = Math.abs(value - val[2]);
-			val[3] = floor + 0.75f;
-			dist[3] = Math.abs(value - val[3]);
-			val[4] = floor + 1.0f;
-			dist[4] = Math.abs(value - val[4]);
-			break;
-		case 2:
-			val = new float[3];
-			dist = new float[3];
-			val[0] = floor;
-			dist[0] = Math.abs(value - val[0]);
-			val[1] = floor + 0.5f;
-			dist[1] = Math.abs(value - val[1]);
-			val[2] = floor + 1.0f;
-			dist[2] = Math.abs(value - val[2]);
-			break;
-		default:
-			return Utils.snap(value);
-		}
-
-		for (int c = 1; c < val.length; ++c) {
-			if (dist[c] < dist[smaller])
-				smaller = c;
-		}
-
-		return val[smaller];
-	}
-
-	public void addFace(IndexedSetFace poly) {
-		faces.add(poly);
+		if (getClass() != obj.getClass())
+			return false;
+		Mesh other = (Mesh) obj;
+		if (faces == null) {
+			if (other.faces != null)
+				return false;
+		} else if (!faces.equals(other.faces))
+			return false;
+		if (material == null) {
+			if (other.material != null)
+				return false;
+		} else if (!material.equals(other.material))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 	public void translate(Vec3 translation) {
 
-		for (Vec3 point : points) {
-			point.set(point.add(translation));
+		for ( GeneralTriangle trig : faces ) {
+			trig.x0 += translation.x;
+			trig.x1 += translation.x;
+			trig.x2 += translation.x;
+			trig.y0 += translation.y;
+			trig.y1 += translation.y;
+			trig.y2 += translation.y;
+			trig.z0 += translation.z;
+			trig.z1 += translation.z;
+			trig.z2 += translation.z;
 		}
 	}
 
@@ -270,23 +187,5 @@ public class Mesh implements Serializable {
 		}
 
 		return cachedColorData;
-	}
-
-	public void destroy() {
-
-		faces.clear();
-
-		points.clear();
-
-		material = null;
-
-		cachedVertexData = null;
-		cachedColorData = null;
-	}
-
-	public void addFacesFrom(Mesh otherMesh) {
-
-		for (IndexedSetFace isf : otherMesh.faces)
-			addFace(isf);
 	}
 }

@@ -1,29 +1,59 @@
 package br.odb.libstrip;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.odb.utils.Color;
 import br.odb.utils.math.Vec3;
 
-public class GeneralPolygon implements IndexedSetFace {
+public class GeneralPolygon {
 
-	private ArrayList<Integer> indexes = new ArrayList<Integer>();
-	private ArrayList<Vec3> vertexes = new ArrayList<Vec3>();
-	public Color color = new Color();
-	public String id = new String( "" );
+	public final List<Integer> indexes = new ArrayList<>();
+	public final List<Vec3> vertexes = new ArrayList<>();
+	public final Color color = new Color();
 	
-	@Override
-	public IndexedSetFace makeCopy() {
+	/**
+	 * Makes a deep copy, including the order of the indexes
+	 * @return a deep copy
+	 */
+	public GeneralPolygon makeCopy() {
 
 		GeneralPolygon poly = new GeneralPolygon();
-
-		for (int c = 0; c < getTotalIndexes(); ++c)
-			poly.addIndex(getIndex(c));
+		
+		for ( Integer i : indexes ) {
+			poly.indexes.add( i.intValue() );
+		}
+		
+		for ( Vec3 v : vertexes ) {
+			poly.vertexes.add( new Vec3( v ) );
+		}
+			
+		poly.color.set( color );
 
 		return poly;
 	}
 	
-	@Override
+	/**
+	 * Convenience method for adding vertexes taking into consideration what's already in the polygon.
+	 * @param v
+	 */
+	public void addVertex( Vec3 v ) {
+		
+		int index;
+		index = vertexes.indexOf( v );
+		
+		if ( index != -1 ) {
+			indexes.add( index );
+		} else {
+			vertexes.add( v );
+			index = vertexes.indexOf( v );
+			indexes.add( index );
+		}
+	}
+	
+	/**
+	 * Returns a list of vertexes, separated by \n
+	 */
 	public String toString() {
 		String toReturn = "";
 		
@@ -32,55 +62,5 @@ public class GeneralPolygon implements IndexedSetFace {
 		}
 		
 		return toReturn;
-	}
-
-	@Override
-	public int getTotalIndexes() {
-
-		return indexes.size();
-	}
-
-	public int getIndex(int d) {
-
-		return indexes.get(d).intValue();
-	}
-
-	public void addIndex(int index) {
-
-		indexes.add(Integer.valueOf(index));
-	}
-
-	@Override
-	public Vec3 getVertex(int c) {
-
-		return vertexes.get(c);
-	}
-
-	
-	public void addVertex(Vec3 v) {
-
-		vertexes.add(v);
-	}
-
-	@Override
-	public Color getColor() {
-
-		return color;
-	}
-
-	@Override
-	public void setColor(Color c) {
-
-		color = c;
-	}
-
-	
-	public void destroy() {
-
-		indexes.clear();
-		indexes = null;
-		vertexes.clear();
-		vertexes = null;
-		color = null;
 	}
 }
