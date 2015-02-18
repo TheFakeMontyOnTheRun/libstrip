@@ -8,8 +8,7 @@ import br.odb.utils.math.Vec3;
 
 public class GeneralPolygon {
 
-	public final List<Integer> indexes = new ArrayList<>();
-	public final List<Vec3> vertexes = new ArrayList<>();
+	public final List<Vec3> vertices = new ArrayList<>();
 	public final Color color = new Color();
 	
 	/**
@@ -20,12 +19,8 @@ public class GeneralPolygon {
 
 		GeneralPolygon poly = new GeneralPolygon();
 		
-		for ( Integer i : indexes ) {
-			poly.indexes.add( i.intValue() );
-		}
-		
-		for ( Vec3 v : vertexes ) {
-			poly.vertexes.add( new Vec3( v ) );
+		for ( Vec3 v : vertices ) {
+			poly.vertices.add( new Vec3( v ) );
 		}
 			
 		poly.color.set( color );
@@ -34,31 +29,13 @@ public class GeneralPolygon {
 	}
 	
 	/**
-	 * Convenience method for adding vertexes taking into consideration what's already in the polygon.
-	 * @param v
-	 */
-	public void addVertex( Vec3 v ) {
-		
-		int index;
-		index = vertexes.indexOf( v );
-		
-		if ( index != -1 ) {
-			indexes.add( index );
-		} else {
-			vertexes.add( v );
-			index = vertexes.indexOf( v );
-			indexes.add( index );
-		}
-	}
-	
-	/**
 	 * Returns a list of vertexes, separated by \n
 	 */
 	public String toString() {
 		String toReturn = "";
 		
-		for ( Vec3 v : vertexes ) {
-			toReturn += "" + v.x + " " + v.y + " " + v.z + "\n";
+		for ( Vec3 v : vertices ) {
+			toReturn += v.toString() + "\n";
 		}
 		
 		return toReturn;

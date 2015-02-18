@@ -1,59 +1,211 @@
-//package br.odb.libstrip;
-//
-//import static org.junit.Assert.*;
-//
-//import org.junit.Test;
-//
-//public class GeneralTriangleTest {
-//
-//	@Test
-//	public void testFlush() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSingleColorData() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetVertexData() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testMakeCopy() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetTotalIndexes() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetVertex() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetColor() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetColor() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testMakeNormal() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFlatten() {
-//		fail("Not yet implemented");
-//	}
-//
-//}
+package br.odb.libstrip;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import br.odb.utils.Color;
+import br.odb.utils.Direction;
+import br.odb.utils.math.Vec3;
+
+public class GeneralTriangleTest {
+
+	public GeneralTriangle makeTestSubject() {
+		GeneralTriangle gt = new GeneralTriangle();
+		
+		gt.setColor( new Color( 0xFF00FF00 ) );
+		
+		gt.x0 = 0.0f;
+		gt.y0 = 0.0f;
+		gt.z0 = 0.0f;
+		
+		gt.x1 = 1.0f;
+		gt.y1 = 0.0f;
+		gt.z1 = 0.0f;
+		
+		gt.x2 = 0.0f;
+		gt.y2 = 1.0f;
+		gt.z2 = 0.0f;
+		
+		return gt;
+	}
+	
+	
+	@Test
+	public void testFlush() {
+		GeneralTriangle gt = makeTestSubject();
+		gt.flush();
+	}
+
+	@Test
+	public void testSingleColorData() {
+		GeneralTriangle gt = makeTestSubject();
+		float[] colour = gt.singleColorData();
+		Assert.assertEquals( 1.0f, colour[ 0 ], 0.001f );
+		Assert.assertEquals( 0.0f, colour[ 1 ], 0.001f );
+		Assert.assertEquals( 1.0f, colour[ 2 ], 0.001f );
+		Assert.assertEquals( 0.0f, colour[ 3 ], 0.001f );
+	}
+
+	@Test
+	public void testGetVertexData() {
+		
+		GeneralTriangle gt = makeTestSubject();		
+		float[] vertices = gt.getVertexData();
+		
+		Assert.assertEquals( 0.0f, vertices[ 0 ], 0.001f );
+		Assert.assertEquals( 0.0f, vertices[ 1 ], 0.001f );
+		Assert.assertEquals( 0.0f, vertices[ 2 ], 0.001f );
+		
+		Assert.assertEquals( 1.0f, vertices[ 3 ], 0.001f );
+		Assert.assertEquals( 0.0f, vertices[ 4 ], 0.001f );
+		Assert.assertEquals( 0.0f, vertices[ 5 ], 0.001f );
+		
+		Assert.assertEquals( 0.0f, vertices[ 6 ], 0.001f );
+		Assert.assertEquals( 1.0f, vertices[ 7 ], 0.001f );
+		Assert.assertEquals( 0.0f, vertices[ 8 ], 0.001f );
+	}
+
+	@Test
+	public void testMakeCopy() {
+		GeneralTriangle gt = makeTestSubject();
+		GeneralTriangle gt2 = gt.makeCopy();
+		
+		Assert.assertEquals( gt, gt2 );
+	}
+	
+	@Test
+	public void testEqualsAndHashcode() {
+		GeneralTriangle gt = makeTestSubject();
+		GeneralTriangle gt2 = makeTestSubject();
+		GeneralTriangle gt3;
+		
+
+		
+		
+		Assert.assertEquals( gt, gt2 );
+		Assert.assertEquals( gt.hashCode(), gt2.hashCode() );
+		
+		gt.hint = Direction.FLOOR;
+		gt2.hint = Direction.CEILING;
+		
+		Assert.assertEquals( gt, gt2 );
+		Assert.assertEquals( gt.hashCode(), gt2.hashCode() );
+		
+		gt3 = makeTestSubject();
+		gt3.x0 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.y0 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.z0 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.x1 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.y1 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.z1 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.x2 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.y2 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.z2 = -1.0f;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.a = 137;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.r = 137;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.g = 137;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		gt3 = makeTestSubject();
+		gt3.b = 137;		
+		Assert.assertFalse( gt.equals( gt3 ) );
+		
+		
+		
+		Assert.assertTrue( gt.equals( gt ) );
+		Assert.assertFalse( gt.equals( "Not even a damn triangle!" ) );
+		Assert.assertFalse( gt.equals( null ) );
+		
+	}
+
+	@Test
+	public void testGetVertex() {
+		GeneralTriangle gt = makeTestSubject();
+		Assert.assertEquals( new Vec3(), gt.getVertex( 0 ) );
+		Assert.assertEquals( new Vec3( 1.0f, 0.0f, 0.0f ), gt.getVertex( 1 ) );
+		Assert.assertEquals( new Vec3( 0.0f, 1.0f, 0.0f ), gt.getVertex( 2 ) );
+	}
+
+	@Test
+	public void testGetColor() {
+		GeneralTriangle gt = makeTestSubject();
+		Color c = gt.getColor();
+		Assert.assertEquals( 255, c.a );
+		Assert.assertEquals( 0, c.r );
+		Assert.assertEquals( 255, c.g );
+		Assert.assertEquals( 0, c.b );
+
+	}
+
+	@Test
+	public void testSetColor() {
+		GeneralTriangle gt = makeTestSubject();
+		gt.setColor( new Color( 255, 128, 64 ) );
+		Color c = gt.getColor();
+		Assert.assertEquals( 255, c.a );
+		Assert.assertEquals( 255, c.r );
+		Assert.assertEquals( 128, c.g );
+		Assert.assertEquals( 64, c.b );
+
+	}
+
+	@Test
+	public void testMakeNormal() {
+		GeneralTriangle gt = makeTestSubject();
+		Vec3 normal = gt.makeNormal();
+		Assert.assertEquals( new Vec3( 0.0f, 0.0f, 1.0f ), normal );
+	}
+
+	@Test
+	public void testFlatten() {
+		GeneralTriangle gt = makeTestSubject();
+		gt.z0 = -1.0f;
+		gt.z1 = -2.0f;
+		gt.z2 = -3.0f;
+		
+		Assert.assertFalse( gt.z0 >= 0.0f );
+		Assert.assertFalse( gt.z1 >= 0.0f );
+		Assert.assertFalse( gt.z2 >= 0.0f );
+		
+		gt.flatten( 1 );
+		
+		Assert.assertTrue( gt.z0 >= 0.0f );
+		Assert.assertTrue( gt.z1 >= 0.0f );
+		Assert.assertTrue( gt.z2 >= 0.0f );
+	}
+
+}
