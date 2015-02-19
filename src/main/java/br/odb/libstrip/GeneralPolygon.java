@@ -3,13 +3,12 @@ package br.odb.libstrip;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.odb.utils.Color;
 import br.odb.utils.math.Vec3;
 
 public class GeneralPolygon {
 
 	public final List<Vec3> vertices = new ArrayList<>();
-	public final Color color = new Color();
+	public Material material;
 	
 	/**
 	 * Makes a deep copy, including the order of the indexes
@@ -23,7 +22,7 @@ public class GeneralPolygon {
 			poly.vertices.add( new Vec3( v ) );
 		}
 			
-		poly.color.set( color );
+		poly.material = material;
 
 		return poly;
 	}

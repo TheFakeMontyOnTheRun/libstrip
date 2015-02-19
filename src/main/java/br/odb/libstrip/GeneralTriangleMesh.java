@@ -11,15 +11,15 @@ import br.odb.utils.math.Vec3;
  * @author Daniel "Monty" Monteiro
  * 
  */
-public class Mesh implements Serializable {
+public class GeneralTriangleMesh implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3375701151469728552L;
 	
 	final public List<GeneralTriangle> faces = new ArrayList<GeneralTriangle>();
+	
 	final public String name;
-	public Material material;
 	private float[] cachedVertexData;
 	private float[] cachedColorData;
 
@@ -33,20 +33,16 @@ public class Mesh implements Serializable {
 	 * 
 	 * @param mesh
 	 */
-	public Mesh(String name, Mesh mesh) {
+	public GeneralTriangleMesh(String name, GeneralTriangleMesh mesh) {
 
 		this(name);
 
 		for (GeneralTriangle face : mesh.faces) {
 			faces.add(face.makeCopy());
 		}
-
-		if (mesh.material != null) {
-			material = new Material(mesh.material);
-		}
 	}
 
-	public Mesh(String name) {
+	public GeneralTriangleMesh(String name) {
 		this.name = name;
 	}
 
@@ -60,23 +56,20 @@ public class Mesh implements Serializable {
 		
 		sb.append( "<name>" + name + "</name>\n" );
 
-		if ( material != null ) {
-			sb.append( "\n" + material );
-		}
-		
 		for (GeneralTriangle isf : faces) {
 			sb.append( "\n" + isf );
 		}
 		return sb.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((faces == null) ? 0 : faces.hashCode());
-		result = prime * result
-				+ ((material == null) ? 0 : material.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -101,30 +94,35 @@ public class Mesh implements Serializable {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Mesh other = (Mesh) obj;
+		}
+		GeneralTriangleMesh other = (GeneralTriangleMesh) obj;
 		if (faces == null) {
-			if (other.faces != null)
+			if (other.faces != null) {
 				return false;
-		} else if (!faces.equals(other.faces))
+			}
+		} else if (!faces.equals(other.faces)) {
 			return false;
-		if (material == null) {
-			if (other.material != null)
-				return false;
-		} else if (!material.equals(other.material))
-			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -141,6 +139,24 @@ public class Mesh implements Serializable {
 			trig.z1 += translation.z;
 			trig.z2 += translation.z;
 		}
+		
+		if (cachedVertexData != null) {
+
+			for (int c = 0; c < cachedVertexData.length; c += 9) {
+
+				cachedVertexData[c    ] += translation.x;
+				cachedVertexData[c + 1] += translation.y;
+				cachedVertexData[c + 2] += translation.z;
+
+				cachedVertexData[c + 3] += translation.x;
+				cachedVertexData[c + 4] += translation.y;
+				cachedVertexData[c + 5] += translation.z;
+
+				cachedVertexData[c + 6] += translation.x;
+				cachedVertexData[c + 7] += translation.y;
+				cachedVertexData[c + 8] += translation.z;
+			}
+		}		
 	}
 
 	public float[] getVertexData() {
@@ -173,16 +189,19 @@ public class Mesh implements Serializable {
 	public float[] getColorData() {
 
 		if (cachedColorData == null) {
+			
+			float[] colourData;
 			GeneralTriangle t;
 			cachedColorData = new float[4 * this.faces.size()];
 
 			for (int c = 0; c < faces.size(); ++c) {
 
 				t = (GeneralTriangle) faces.get(c);
-				cachedColorData[(c * 4)] = t.r / 255.0f;
-				cachedColorData[(c * 4) + 1] = t.g / 255.0f;
-				cachedColorData[(c * 4) + 2] = t.b / 255.0f;
-				cachedColorData[(c * 4) + 3] = t.a / 255.0f;
+				colourData = t.material.mainColor.getFloatData();
+				cachedColorData[(c * 4)] = colourData[ 0 ];
+				cachedColorData[(c * 4) + 1] = colourData[ 1 ];
+				cachedColorData[(c * 4) + 2] = colourData[ 2 ];
+				cachedColorData[(c * 4) + 3] = colourData[ 3 ];
 			}
 		}
 

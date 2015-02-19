@@ -13,7 +13,7 @@ public class GeneralTriangleTest {
 	public GeneralTriangle makeTestSubject() {
 		GeneralTriangle gt = new GeneralTriangle();
 		
-		gt.setColor( new Color( 0xFF00FF00 ) );
+		gt.material = new Material( null, new Color( 0xFF00FF00 ), null, null, null );
 		
 		gt.x0 = 0.0f;
 		gt.y0 = 0.0f;
@@ -40,7 +40,7 @@ public class GeneralTriangleTest {
 	@Test
 	public void testSingleColorData() {
 		GeneralTriangle gt = makeTestSubject();
-		float[] colour = gt.singleColorData();
+		float[] colour = gt.material.mainColor.getFloatData();
 		Assert.assertEquals( 1.0f, colour[ 0 ], 0.001f );
 		Assert.assertEquals( 0.0f, colour[ 1 ], 0.001f );
 		Assert.assertEquals( 1.0f, colour[ 2 ], 0.001f );
@@ -129,19 +129,19 @@ public class GeneralTriangleTest {
 		Assert.assertFalse( gt.equals( gt3 ) );
 		
 		gt3 = makeTestSubject();
-		gt3.a = 137;		
+		gt3.material.mainColor.a = 137;		
 		Assert.assertFalse( gt.equals( gt3 ) );
 		
 		gt3 = makeTestSubject();
-		gt3.r = 137;		
+		gt3.material.mainColor.r = 137;		
 		Assert.assertFalse( gt.equals( gt3 ) );
 		
 		gt3 = makeTestSubject();
-		gt3.g = 137;		
+		gt3.material.mainColor.g = 137;		
 		Assert.assertFalse( gt.equals( gt3 ) );
 		
 		gt3 = makeTestSubject();
-		gt3.b = 137;		
+		gt3.material.mainColor.b = 137;		
 		Assert.assertFalse( gt.equals( gt3 ) );
 		
 		
@@ -158,29 +158,6 @@ public class GeneralTriangleTest {
 		Assert.assertEquals( new Vec3(), gt.getVertex( 0 ) );
 		Assert.assertEquals( new Vec3( 1.0f, 0.0f, 0.0f ), gt.getVertex( 1 ) );
 		Assert.assertEquals( new Vec3( 0.0f, 1.0f, 0.0f ), gt.getVertex( 2 ) );
-	}
-
-	@Test
-	public void testGetColor() {
-		GeneralTriangle gt = makeTestSubject();
-		Color c = gt.getColor();
-		Assert.assertEquals( 255, c.a );
-		Assert.assertEquals( 0, c.r );
-		Assert.assertEquals( 255, c.g );
-		Assert.assertEquals( 0, c.b );
-
-	}
-
-	@Test
-	public void testSetColor() {
-		GeneralTriangle gt = makeTestSubject();
-		gt.setColor( new Color( 255, 128, 64 ) );
-		Color c = gt.getColor();
-		Assert.assertEquals( 255, c.a );
-		Assert.assertEquals( 255, c.r );
-		Assert.assertEquals( 128, c.g );
-		Assert.assertEquals( 64, c.b );
-
 	}
 
 	@Test

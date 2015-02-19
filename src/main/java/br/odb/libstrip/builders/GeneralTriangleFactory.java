@@ -1,13 +1,13 @@
 package br.odb.libstrip.builders;
 
 import br.odb.libstrip.GeneralTriangle;
-import br.odb.utils.Color;
+import br.odb.libstrip.Material;
 import br.odb.utils.math.Vec3;
 
 public class GeneralTriangleFactory {
 
 	public GeneralTriangle makeTrig(float x, float y, float z, float x2, float y2,
-			float z2, float x3, float y3, float z3, int lastColor,
+			float z2, float x3, float y3, float z3, Material material,
 			Vec3 lightDirection) {
 
 		GeneralTriangle toReturn = new GeneralTriangle();
@@ -22,7 +22,7 @@ public class GeneralTriangleFactory {
 		toReturn.y2 = y3;
 		toReturn.z2 = z3;
 		
-		toReturn.setColor( new Color( lastColor ) );
+		toReturn.material = material;
 
 		return toReturn;
 	}
