@@ -161,6 +161,11 @@ public class MaterialTest {
 		Assert.assertTrue(m.hashCode() == m1.hashCode());
 		Assert.assertTrue(m.equals(m1));
 		Assert.assertTrue(m1.equals(m));
+
+
+		m1 = new Material("test1", new Color(255, 128, 64), "tex0.png", null, "frag1.glsl");
+		Assert.assertFalse(m.equals(m1));
+		Assert.assertFalse(m1.equals(m));		
 		
 
 		Assert.assertFalse(m1.hashCode() == m2.hashCode());

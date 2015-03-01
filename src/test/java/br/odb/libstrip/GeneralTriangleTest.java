@@ -41,10 +41,10 @@ public class GeneralTriangleTest {
 	public void testSingleColorData() {
 		GeneralTriangle gt = makeTestSubject();
 		float[] colour = gt.material.mainColor.getFloatData();
-		Assert.assertEquals( 1.0f, colour[ 0 ], 0.001f );
-		Assert.assertEquals( 0.0f, colour[ 1 ], 0.001f );
-		Assert.assertEquals( 1.0f, colour[ 2 ], 0.001f );
-		Assert.assertEquals( 0.0f, colour[ 3 ], 0.001f );
+		Assert.assertEquals( 0.0f, colour[ 0 ], 0.001f );
+		Assert.assertEquals( 1.0f, colour[ 1 ], 0.001f );
+		Assert.assertEquals( 0.0f, colour[ 2 ], 0.001f );
+		Assert.assertEquals( 1.0f, colour[ 3 ], 0.001f );
 	}
 
 	@Test
@@ -71,7 +71,22 @@ public class GeneralTriangleTest {
 		GeneralTriangle gt = makeTestSubject();
 		GeneralTriangle gt2 = gt.makeCopy();
 		
+		Assert.assertEquals( gt.hashCode(), gt2.hashCode() );
 		Assert.assertEquals( gt, gt2 );
+		
+		gt2.material = null;
+		
+		Assert.assertFalse( gt.equals( gt2 ) );
+		Assert.assertFalse( gt2.equals( gt ) );
+
+		Assert.assertFalse( gt.hashCode() == gt2.hashCode() );
+		
+		gt2.material = new Material( null, new Color( 0xFFFFFF00 ), null, null, null );
+		
+		Assert.assertFalse( gt.equals( gt2 ) );
+		Assert.assertFalse( gt2.equals( gt ) );
+		
+		Assert.assertFalse( gt.hashCode() == gt2.hashCode() );
 	}
 	
 	@Test

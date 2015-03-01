@@ -123,6 +123,11 @@ public class GeneralTriangleMeshTest {
 		Assert.assertEquals( mesh1, mesh1 );
 		Assert.assertEquals( mesh1.hashCode(), mesh2.hashCode() );
 		
+		GeneralTriangleMesh nullMesh1 = new GeneralTriangleMesh( null, mesh1 );
+		
+		Assert.assertFalse( nullMesh1.equals( mesh2 ) );
+		Assert.assertFalse( mesh1.equals( nullMesh1 ) );		
+		Assert.assertFalse( mesh1.hashCode() == nullMesh1.hashCode() );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, material, null ) );
 		
@@ -137,6 +142,8 @@ public class GeneralTriangleMeshTest {
 		
 		Assert.assertFalse( mesh1.hashCode() == mesh2.hashCode() );
 		Assert.assertFalse( mesh1.hashCode() == mesh3.hashCode() );
+		
+		
 	}	
 
 	/**
@@ -220,7 +227,11 @@ public class GeneralTriangleMeshTest {
 		
 		float[] data2 = mesh1.getVertexData();
 		
-		Assert.assertEquals( data, data2 );
+		Assert.assertEquals( data.length, data2.length );
+		
+		for ( int c = 0; c < data.length; ++c ) {
+			Assert.assertEquals( data[ c ], data2[ c ] );	
+		}
 	}
 
 	/**

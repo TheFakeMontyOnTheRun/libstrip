@@ -36,7 +36,7 @@ public class Material implements Serializable {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if ( !( obj instanceof Material ) ) {
 			return false;
 		}
 		Material other = (Material) obj;

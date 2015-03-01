@@ -106,7 +106,7 @@ public class GeneralTriangle implements Serializable {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if ( !( obj instanceof GeneralTriangle ) ) {
 			return false;
 		}
 		GeneralTriangle other = (GeneralTriangle) obj;
