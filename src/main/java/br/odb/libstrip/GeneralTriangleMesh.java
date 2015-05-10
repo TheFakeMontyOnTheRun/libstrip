@@ -122,6 +122,39 @@ public class GeneralTriangleMesh implements Serializable {
 		return true;
 	}
 
+//	public void rotateXZ( float angleDegrees ) {
+//		
+//		for ( GeneralTriangle trig : faces ) {
+//			trig.x0 += translation.x;
+//			trig.x1 += translation.x;
+//			trig.x2 += translation.x;
+//			trig.y0 += translation.y;
+//			trig.y1 += translation.y;
+//			trig.y2 += translation.y;
+//			trig.z0 += translation.z;
+//			trig.z1 += translation.z;
+//			trig.z2 += translation.z;
+//		}
+//		
+//		if (cachedVertexData != null) {
+//
+//			for (int c = 0; c < cachedVertexData.length; c += 9) {
+//
+//				cachedVertexData[c    ] += translation.x;
+//				cachedVertexData[c + 1] += translation.y;
+//				cachedVertexData[c + 2] += translation.z;
+//
+//				cachedVertexData[c + 3] += translation.x;
+//				cachedVertexData[c + 4] += translation.y;
+//				cachedVertexData[c + 5] += translation.z;
+//
+//				cachedVertexData[c + 6] += translation.x;
+//				cachedVertexData[c + 7] += translation.y;
+//				cachedVertexData[c + 8] += translation.z;
+//			}
+//		}	
+//	}
+	
 	public void translate(Vec3 translation) {
 
 		for ( GeneralTriangle trig : faces ) {
