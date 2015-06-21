@@ -155,6 +155,49 @@ public class GeneralTriangleMesh implements Serializable {
 //		}	
 //	}
 	
+	public void translateTo(Vec3 translation) {
+		Vec3 center = this.getCenter();
+		translate( translation.sub( center ) );
+	}
+	
+	public void scale(float scaleFactor) {
+		scale( new Vec3( scaleFactor, scaleFactor, scaleFactor ) );
+	}
+	
+	
+	public void scale(Vec3 scaleFactors) {
+
+		for ( GeneralTriangle trig : faces ) {
+			trig.x0 *= scaleFactors.x;
+			trig.x1 *= scaleFactors.x;
+			trig.x2 *= scaleFactors.x;
+			trig.y0 *= scaleFactors.y;
+			trig.y1 *= scaleFactors.y;
+			trig.y2 *= scaleFactors.y;
+			trig.z0 *= scaleFactors.z;
+			trig.z1 *= scaleFactors.z;
+			trig.z2 *= scaleFactors.z;
+		}
+		
+		if (cachedVertexData != null) {
+
+			for (int c = 0; c < cachedVertexData.length; c += 9) {
+
+				cachedVertexData[c    ] *= scaleFactors.x;
+				cachedVertexData[c + 1] *= scaleFactors.y;
+				cachedVertexData[c + 2] *= scaleFactors.z;
+
+				cachedVertexData[c + 3] *= scaleFactors.x;
+				cachedVertexData[c + 4] *= scaleFactors.y;
+				cachedVertexData[c + 5] *= scaleFactors.z;
+
+				cachedVertexData[c + 6] *= scaleFactors.x;
+				cachedVertexData[c + 7] *= scaleFactors.y;
+				cachedVertexData[c + 8] *= scaleFactors.z;
+			}
+		}		
+	}
+	
 	public void translate(Vec3 translation) {
 
 		for ( GeneralTriangle trig : faces ) {
