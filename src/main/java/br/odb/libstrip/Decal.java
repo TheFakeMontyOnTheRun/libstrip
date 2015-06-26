@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.odb.utils.Color;
+import br.odb.utils.Direction;
 import br.odb.utils.FileServerDelegate;
 
 /**
@@ -30,6 +31,49 @@ public class Decal extends GeneralTriangleMesh {
 	public Decal(String name) {
 		super(name);
 	}
+	
+	
+	private void alignWithDirection( Direction d ) {
+		float tmp;
+		
+		switch( d ) {
+		case FLOOR:
+			for ( GeneralTriangle gt : faces ) {
+				tmp = gt.y0;
+				gt.y0 = gt.z0;
+				gt.z0 = tmp;
+				
+				tmp = gt.y1;
+				gt.y1 = gt.z1;
+				gt.z1 = tmp;
+				
+				tmp = gt.y1;
+				gt.y1 = gt.z1;
+				gt.z1 = tmp;
+			}
+
+			break;
+		case CEILING:
+			break;
+		case W:
+			for ( GeneralTriangle gt : faces ) {
+				tmp = gt.x0;
+				gt.x0 = gt.z0;
+				gt.z0 = tmp;
+				
+				tmp = gt.x1;
+				gt.x1 = gt.z1;
+				gt.z1 = tmp;
+				
+				tmp = gt.x1;
+				gt.x1 = gt.z1;
+				gt.z1 = tmp;
+			}
+
+			break;
+		}
+	}
+	
 
 	private static final float normalizeZ( byte z, HashMap<Byte, Float> zRoundings ) {
 		
@@ -63,6 +107,19 @@ public class Decal extends GeneralTriangleMesh {
 		return yRoundings.get( y );
 	}
 	
+	
+	public static final Decal loadDecal( String name, InputStream is, Direction d )
+			throws IOException {
+		
+		Decal toReturn = new Decal( name ); 
+		GeneralTriangle[] rawTrigs = loadFrom( is, -1.2f, 255, 255 );
+
+		for ( GeneralTriangle gt : rawTrigs ) {
+			toReturn.faces.add( gt );
+		}
+		
+		return toReturn;		
+	}
 	
 	
 	public static final GeneralTriangle[] loadGraphic(InputStream is, float screenWidth, float screenHeight )
