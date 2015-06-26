@@ -13,6 +13,7 @@ import java.util.HashMap;
 import br.odb.utils.Color;
 import br.odb.utils.Direction;
 import br.odb.utils.FileServerDelegate;
+import br.odb.utils.math.Vec3;
 
 /**
  * @author monty
@@ -31,49 +32,6 @@ public class Decal extends GeneralTriangleMesh {
 	public Decal(String name) {
 		super(name);
 	}
-	
-	
-	private void alignWithDirection( Direction d ) {
-		float tmp;
-		
-		switch( d ) {
-		case FLOOR:
-			for ( GeneralTriangle gt : faces ) {
-				tmp = gt.y0;
-				gt.y0 = gt.z0;
-				gt.z0 = tmp;
-				
-				tmp = gt.y1;
-				gt.y1 = gt.z1;
-				gt.z1 = tmp;
-				
-				tmp = gt.y1;
-				gt.y1 = gt.z1;
-				gt.z1 = tmp;
-			}
-
-			break;
-		case CEILING:
-			break;
-		case W:
-			for ( GeneralTriangle gt : faces ) {
-				tmp = gt.x0;
-				gt.x0 = gt.z0;
-				gt.z0 = tmp;
-				
-				tmp = gt.x1;
-				gt.x1 = gt.z1;
-				gt.z1 = tmp;
-				
-				tmp = gt.x1;
-				gt.x1 = gt.z1;
-				gt.z1 = tmp;
-			}
-
-			break;
-		}
-	}
-	
 
 	private static final float normalizeZ( byte z, HashMap<Byte, Float> zRoundings ) {
 		
@@ -115,9 +73,9 @@ public class Decal extends GeneralTriangleMesh {
 		GeneralTriangle[] rawTrigs = loadFrom( is, -1.2f, 255, 255 );
 
 		for ( GeneralTriangle gt : rawTrigs ) {
-			toReturn.faces.add( gt );
+			
+			toReturn.faces.add( applyToFace( d, new Vec3( 0.0f, 0.0f, 0.0f ), new Vec3( 1.0f, 1.0f, 1.0f), gt, 0.5f ) );
 		}
-		
 		return toReturn;		
 	}
 	
@@ -129,6 +87,117 @@ public class Decal extends GeneralTriangleMesh {
 		
 	}
 
+	public static GeneralTriangle applyToFace( Direction d, Vec3 p0, Vec3 p1, GeneralTriangle face, float delta ) {
+		
+		float x;
+		float y;
+		float z;
+		float x0 = 0.0f;
+		float y0 = 0.0f;
+		float z0 = 0.0f;
+		float x1 = 0.0f;
+		float y1 = 0.0f;
+		float z1 = 0.0f;
+		float x2 = 0.0f;
+		float y2 = 0.0f;
+		float z2 = 0.0f;
+		Vec3 pd = p1.sub( p0 );
+		float dx = pd.x;
+		float dy = pd.y;
+		float dz = pd.z;
+		
+		x = p0.x + dx / 2;
+		y = p0.y;
+		z = p0.z + dz / 2;
+		
+		switch ( d ) {
+			case N: {
+				x0 = x + ( face.x0 ) * dx;
+				y0 = ( dy / 2.0f ) + y + ( face.y0 ) * dy;
+				z0 = z - delta - ( dz / 2 );
+				x1 = x + ( face.x1 ) * dx;
+				y1 = ( dy / 2.0f ) + y + ( face.y1 ) * dy;
+				z1 = z - delta - ( dz / 2 );
+				x2 = x + ( face.x2 ) * dx;
+				y2 = ( dy / 2.0f ) + y + ( face.y2 ) * dy;
+				z2 = z - delta - ( dz / 2 );
+			}
+			break;
+			case E: {
+				x0 = x - delta + ( dx / 2 );
+				y0 = ( dy / 2.0f ) + y + ( face.y0 * dy );
+				z0 = z + ( face.x0 * dx );
+				x1 = x - delta + ( dx / 2 );
+				y1 = ( dy / 2.0f ) + y + ( face.y1 * dy );
+				z1 = z + ( face.x1 * dz );
+				x2 = x - delta + ( dx / 2 );
+				y2 = ( dy / 2.0f ) + y + ( face.y2 * dy );
+				z2 = z + ( face.x2 * dz );
+			}
+			break;
+			case S: {
+				x0 = x + ( face.x0 ) * dx;
+				y0 = ( dy / 2.0f ) + y + ( face.y0 ) * dy;
+				z0 = z + delta + ( dz / 2 );
+				x1 = x + ( face.x1 ) * dx;
+				y1 = ( dy / 2.0f ) + y + ( face.y1 ) * dy;
+				z1 = z + delta + ( dz / 2 );
+				x2 = x + ( face.x2 ) * dx;
+				y2 = ( dy / 2.0f ) + y + ( face.y2 ) * dy;
+				z2 = z + delta + ( dz / 2 );
+			}
+			break;
+			case W: {
+				x0 = x + delta - ( dx / 2 );
+				y0 = ( dy / 2.0f ) + y + ( face.y0 * dy );
+				z0 = z + ( face.x0 * dx );
+				x1 = x + delta - ( dx / 2 );
+				y1 = ( dy / 2.0f ) + y + ( face.y1 * dy );
+				z1 = z + ( face.x1 * dz );
+				x2 = x + delta - ( dx / 2 );
+				y2 = ( dy / 2.0f ) + y + ( face.y2 * dy );
+				z2 = z + ( face.x2 * dz );			}
+			break;
+			case FLOOR: {
+				x0 = x + ( face.x0 ) * dx;
+				y0 = y + delta ;// + ( face.z0 );
+				z0 = z + ( face.y0 ) * dz;
+				x1 = x + ( face.x1 ) * dx;
+				y1 = y + delta ;// + ( face.z1 );
+				z1 = z + ( face.y1 ) * dz;
+				x2 = x + ( face.x2 ) * dx;
+				y2 = y + delta ;// + ( face.z2 );
+				z2 = z + ( face.y2 ) * dz;
+			}
+			break;
+			case CEILING: {
+				x0 = x + ( face.x0 );
+				y0 = - delta +pd.y + y + ( face.z0 );
+				z0 = z + ( face.y0 );
+				x1 = x + ( face.x1 );
+				y1 = - delta + pd.y + y + ( face.z1 );
+				z1 = z + ( face.y1 );
+				x2 = x + ( face.x2 );
+				y2 = - delta + pd.y + y + ( face.z2 );
+				z2 = z + ( face.y2 );
+			}
+			break;
+		}
+
+		face.x0 = x0;
+		face.y0 = y0;
+		face.z0 = z0;
+		
+		face.x1 = x1;
+		face.y1 = y1;
+		face.z1 = z1;
+		
+		face.x2 = x2;
+		face.y2 = y2;
+		face.z2 = z2;		
+		
+		return face;
+	}
 	
 	private static GeneralTriangle[] loadFrom( InputStream is, float offset, float screenWidth, float screenHeight ) throws IOException {
 		
