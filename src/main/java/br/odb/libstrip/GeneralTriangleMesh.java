@@ -122,38 +122,35 @@ public class GeneralTriangleMesh implements Serializable {
 		return true;
 	}
 
-//	public void rotateXZ( float angleDegrees ) {
-//		
-//		for ( GeneralTriangle trig : faces ) {
-//			trig.x0 += translation.x;
-//			trig.x1 += translation.x;
-//			trig.x2 += translation.x;
-//			trig.y0 += translation.y;
-//			trig.y1 += translation.y;
-//			trig.y2 += translation.y;
-//			trig.z0 += translation.z;
-//			trig.z1 += translation.z;
-//			trig.z2 += translation.z;
-//		}
-//		
-//		if (cachedVertexData != null) {
-//
-//			for (int c = 0; c < cachedVertexData.length; c += 9) {
-//
-//				cachedVertexData[c    ] += translation.x;
-//				cachedVertexData[c + 1] += translation.y;
-//				cachedVertexData[c + 2] += translation.z;
-//
-//				cachedVertexData[c + 3] += translation.x;
-//				cachedVertexData[c + 4] += translation.y;
-//				cachedVertexData[c + 5] += translation.z;
-//
-//				cachedVertexData[c + 6] += translation.x;
-//				cachedVertexData[c + 7] += translation.y;
-//				cachedVertexData[c + 8] += translation.z;
-//			}
-//		}	
-//	}
+	public void rotateXZ( float angleDegrees ) {
+		
+		float rad = (float) ( Math.PI / 180.0f );
+		float sin = (float) Math.sin( angleDegrees * rad );
+		float cos = (float) Math.sin( angleDegrees * rad );
+
+		float x;
+		float z;
+		
+		for ( GeneralTriangle trig : faces ) {
+			
+			x = trig.x0 * cos - trig.z0 * sin;
+			z = trig.x0 * sin + trig.z0 * cos;
+			trig.x0 = x;
+			trig.z0 = z;
+			
+			x = trig.x1 * cos - trig.z1 * sin;
+			z = trig.x1 * sin + trig.z1 * cos;
+			trig.x1 = x;
+			trig.z1 = z;			
+
+			x = trig.x2 * cos - trig.z2 * sin;
+			z = trig.x2 * sin + trig.z2 * cos;
+			trig.x2 = x;
+			trig.z2 = z;		
+		}
+		
+		updateVertexData();
+	}
 	
 	public void translateTo(Vec3 translation) {
 		Vec3 center = this.getCenter();
@@ -231,28 +228,32 @@ public class GeneralTriangleMesh implements Serializable {
 		}		
 	}
 
+	
+	void updateVertexData() {
+		GeneralTriangle t;
+		cachedVertexData = new float[9 * this.faces.size()];
+
+		for (int c = 0; c < cachedVertexData.length; c += 9) {
+
+			t = (GeneralTriangle) faces.get(c / 9);
+			cachedVertexData[c] = t.x0;
+			cachedVertexData[c + 1] = t.y0;
+			cachedVertexData[c + 2] = t.z0;
+
+			cachedVertexData[c + 3] = t.x1;
+			cachedVertexData[c + 4] = t.y1;
+			cachedVertexData[c + 5] = t.z1;
+
+			cachedVertexData[c + 6] = t.x2;
+			cachedVertexData[c + 7] = t.y2;
+			cachedVertexData[c + 8] = t.z2;
+		}
+	}
+	
 	public float[] getVertexData() {
 
 		if (cachedVertexData == null) {
-
-			GeneralTriangle t;
-			cachedVertexData = new float[9 * this.faces.size()];
-
-			for (int c = 0; c < cachedVertexData.length; c += 9) {
-
-				t = (GeneralTriangle) faces.get(c / 9);
-				cachedVertexData[c] = t.x0;
-				cachedVertexData[c + 1] = t.y0;
-				cachedVertexData[c + 2] = t.z0;
-
-				cachedVertexData[c + 3] = t.x1;
-				cachedVertexData[c + 4] = t.y1;
-				cachedVertexData[c + 5] = t.z1;
-
-				cachedVertexData[c + 6] = t.x2;
-				cachedVertexData[c + 7] = t.y2;
-				cachedVertexData[c + 8] = t.z2;
-			}
+			updateVertexData();
 		}
 
 		return cachedVertexData;
