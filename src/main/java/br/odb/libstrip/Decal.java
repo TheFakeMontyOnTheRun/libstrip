@@ -70,7 +70,7 @@ public class Decal extends GeneralTriangleMesh {
 			throws IOException {
 		
 		Decal toReturn = new Decal( name ); 
-		GeneralTriangle[] rawTrigs = loadFrom( is, -1.2f, 255, 255 );
+		GeneralTriangle[] rawTrigs = loadFrom( is, -1.2f, 1, 1 );
 
 		for ( GeneralTriangle gt : rawTrigs ) {
 			
@@ -109,6 +109,8 @@ public class Decal extends GeneralTriangleMesh {
 		x = p0.x + dx / 2;
 		y = p0.y;
 		z = p0.z + dz / 2;
+		
+		face.hint = d;
 		
 		switch ( d ) {
 			case N: {
@@ -235,7 +237,7 @@ public class Decal extends GeneralTriangleMesh {
 						continue;
 					
 					t = new GeneralTriangle();
-					t.material = new Material( null, new Color(), null, null ,null );
+					t.material = new Material( null, new Color(), null, null );
 					t.material.mainColor.a = (edge[0] + (-Byte.MIN_VALUE));
 					t.material.mainColor.r = (edge[1] + (-Byte.MIN_VALUE));
 					t.material.mainColor.g = (edge[2] + (-Byte.MIN_VALUE));
@@ -259,7 +261,7 @@ public class Decal extends GeneralTriangleMesh {
 					scratch.add( t );
 					
 					t = new GeneralTriangle();
-					t.material = new Material( null, new Color(), null, null ,null );
+					t.material = new Material( null, new Color(), null, null );
 					t.material.mainColor.a = (edge[0] + (-Byte.MIN_VALUE));
 					t.material.mainColor.r = (edge[1] + (-Byte.MIN_VALUE));
 					t.material.mainColor.g = (edge[2] + (-Byte.MIN_VALUE));
@@ -295,7 +297,7 @@ public class Decal extends GeneralTriangleMesh {
 				is.read(bytes);
 				
 				t = new GeneralTriangle();
-				t.material = new Material( null, new Color(), null, null ,null );
+				t.material = new Material( null, new Color(), null, null );
 				t.material.mainColor.a = (bytes[0] + (-Byte.MIN_VALUE));
 				t.material.mainColor.r = (bytes[1] + (-Byte.MIN_VALUE));
 				t.material.mainColor.g = (bytes[2] + (-Byte.MIN_VALUE));

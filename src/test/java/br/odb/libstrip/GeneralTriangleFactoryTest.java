@@ -22,7 +22,7 @@ public class GeneralTriangleFactoryTest {
 	@Test
 	public void testMakeTrig() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFF00FF00 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFF00FF00 ), null, null );
 		GeneralTriangle t = factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, material, null );
 		Assert.assertEquals( 0.0f, t.x0 );
 		Assert.assertEquals( 0.0f, t.y0 );

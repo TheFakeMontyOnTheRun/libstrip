@@ -25,7 +25,7 @@ public class GeneralTriangleMeshTest {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
@@ -39,7 +39,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGeneralTriangleMeshStringGeneralTriangleMesh() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		GeneralTriangleMesh mesh2;
 		
@@ -67,7 +67,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testToString() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
@@ -88,7 +88,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetCenter() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
@@ -103,7 +103,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testHashCodeAndEquals() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		GeneralTriangleMesh mesh2;
 		GeneralTriangleMesh mesh3 = new GeneralTriangleMesh( null ) ;
@@ -152,7 +152,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testTranslate() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
@@ -206,7 +206,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetVertexData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
@@ -240,7 +240,7 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetColorData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null ,null );
+		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		float[] colour = mesh1.getColorData();

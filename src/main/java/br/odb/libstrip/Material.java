@@ -14,14 +14,12 @@ public class Material implements Serializable {
 	public final Color mainColor = new Color();
 	public final String name;
 	public final String texture;
-	public final String fragmentShader;
-	public final String vertexShader;
+	public final String shaderProgram;
 	
-	public Material(String name, Color c, String texture, String vertexShader, String fragmentShader ) {
+	public Material(String name, Color c, String texture, String shaderProgram ) {
 		this.name = name;
 		this.texture = texture;
-		this.fragmentShader = fragmentShader;
-		this.vertexShader = vertexShader;		
+		this.shaderProgram = shaderProgram;		
 		mainColor.set( c );
 	}
 	
@@ -40,13 +38,6 @@ public class Material implements Serializable {
 			return false;
 		}
 		Material other = (Material) obj;
-		if (fragmentShader == null) {
-			if (other.fragmentShader != null) {
-				return false;
-			}
-		} else if (!fragmentShader.equals(other.fragmentShader)) {
-			return false;
-		}
 		
 		if (!mainColor.equals(other.mainColor)) {
 			return false;
@@ -66,11 +57,11 @@ public class Material implements Serializable {
 		} else if (!texture.equals(other.texture)) {
 			return false;
 		}
-		if (vertexShader == null) {
-			if (other.vertexShader != null) {
+		if (shaderProgram == null) {
+			if (other.shaderProgram != null) {
 				return false;
 			}
-		} else if (!vertexShader.equals(other.vertexShader)) {
+		} else if (!shaderProgram.equals(other.shaderProgram)) {
 			return false;
 		}
 		return true;
@@ -84,13 +75,11 @@ public class Material implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((fragmentShader == null) ? 0 : fragmentShader.hashCode());
+				+ ((shaderProgram == null) ? 0 : shaderProgram.hashCode());
 		result = prime * result
 				+ ( mainColor.hashCode() );
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((texture == null) ? 0 : texture.hashCode());
-		result = prime * result
-				+ ((vertexShader == null) ? 0 : vertexShader.hashCode());
 		return result;
 	}
 
@@ -107,12 +96,8 @@ public class Material implements Serializable {
 			sb.append( "texture = '" + texture + "' " );
 		}
 		
-		if ( fragmentShader != null ) {
-			sb.append( "fragment = '" + fragmentShader + "' " );
-		}
-		
-		if ( vertexShader != null ) {
-			sb.append( "vertex = '" + vertexShader + "' " );	
+		if ( shaderProgram != null ) {
+			sb.append( "program = '" + shaderProgram + "' " );	
 		}
 		
 		sb.append( " />" );
