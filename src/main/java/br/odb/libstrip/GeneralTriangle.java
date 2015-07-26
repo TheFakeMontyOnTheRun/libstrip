@@ -15,6 +15,7 @@ public class GeneralTriangle implements Serializable {
 	public Direction hint;
 	
 	public Material material;
+	
 	public float x0;
 	public float y0;
 	public float z0;
@@ -24,7 +25,12 @@ public class GeneralTriangle implements Serializable {
 	public float x2;
 	public float y2;
 	public float z2;
-
+	public float u;
+	public float v;
+	public float nx;
+	public float ny;
+	public float nz;
+	
 	public void flush() {
 	}
 
@@ -66,7 +72,7 @@ public class GeneralTriangle implements Serializable {
 	public Vec3 makeNormal() {
 		Vec3 v1 = new Vec3( x1 - x0, y1 - y0, z1 - z0 );
 		Vec3 v2 = new Vec3( x2 - x0, y2 - y0, z2 - z0 );
-		Vec3 v3 = v1.crossProduct( v2 );
+		Vec3 v3 = v1.crossProduct( v2 ).normalized();
 		return v3;
 	}
 
