@@ -19,7 +19,7 @@ import br.odb.utils.math.Vec3;
  * @author monty
  *
  */
-public class Decal extends GeneralTriangleMesh {
+public class Decal extends TriangleMesh {
 
 	/**
 	 * 

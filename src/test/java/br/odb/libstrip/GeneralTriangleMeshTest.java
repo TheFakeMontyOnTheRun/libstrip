@@ -18,12 +18,12 @@ import br.odb.utils.math.Vec3;
 public class GeneralTriangleMeshTest {
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#clear()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#clear()}.
 	 */
 	@Test
 	public void testClear() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
 		
@@ -34,18 +34,18 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#GeneralTriangleMesh(java.lang.String, br.odb.libstrip.GeneralTriangleMesh)}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#GeneralTriangleMesh(java.lang.String, br.odb.libstrip.TriangleMesh)}.
 	 */
 	@Test
 	public void testGeneralTriangleMeshStringGeneralTriangleMesh() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
-		GeneralTriangleMesh mesh2;
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
+		TriangleMesh mesh2;
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
-		mesh2 = new GeneralTriangleMesh( "mesh2", mesh1 );
+		mesh2 = new TriangleMesh( "mesh2", mesh1 );
 		
 		for ( GeneralTriangle face : mesh1.faces ) {
 			Assert.assertTrue( mesh2.faces.contains( face ) );
@@ -53,22 +53,22 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#GeneralTriangleMesh(java.lang.String)}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#GeneralTriangleMesh(java.lang.String)}.
 	 */
 	@Test
 	public void testGeneralTriangleMeshString() {
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		Assert.assertEquals( "mesh1", mesh1.name );
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#toString()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#toString()}.
 	 */
 	@Test
 	public void testToString() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
@@ -83,13 +83,13 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#getCenter()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#getCenter()}.
 	 */
 	@Test
 	public void testGetCenter() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
@@ -98,32 +98,34 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#equals(java.lang.Object)} and {@link br.odb.libstrip.GeneralTriangleMesh#hashCode()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#equals(java.lang.Object)} and {@link br.odb.libstrip.TriangleMesh#hashCode()}.
 	 */
 	@Test
 	public void testHashCodeAndEquals() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
-		GeneralTriangleMesh mesh2;
-		GeneralTriangleMesh mesh3 = new GeneralTriangleMesh( null ) ;
-		GeneralTriangleMesh mesh4 = new GeneralTriangleMesh( null ) ;
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
+		TriangleMesh mesh2;
+		TriangleMesh mesh3 = new TriangleMesh( null ) ;
+		TriangleMesh mesh4 = new TriangleMesh( null ) ;
+		TriangleMesh mesh5;
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		
-		mesh2 = new GeneralTriangleMesh( "mesh1", mesh1 );
-		mesh4 = new GeneralTriangleMesh( "mesh2", mesh1 );
+		mesh2 = new TriangleMesh( "mesh1", mesh1 );
+		mesh4 = new TriangleMesh( "mesh2", mesh1 );
+		mesh5 = new TriangleMesh( null, mesh1 );
 		
 		for ( GeneralTriangle face : mesh1.faces ) {
 			Assert.assertTrue( mesh2.faces.contains( face ) );
 		}
-		
+		Assert.assertFalse( mesh4.equals( mesh5 ) );
 		Assert.assertEquals( mesh1, mesh2 );
 		Assert.assertEquals( mesh1, mesh1 );
 		Assert.assertEquals( mesh1.hashCode(), mesh2.hashCode() );
 		
-		GeneralTriangleMesh nullMesh1 = new GeneralTriangleMesh( null, mesh1 );
+		TriangleMesh nullMesh1 = new TriangleMesh( null, mesh1 );
 		
 		Assert.assertFalse( nullMesh1.equals( mesh2 ) );
 		Assert.assertFalse( mesh1.equals( nullMesh1 ) );		
@@ -147,13 +149,13 @@ public class GeneralTriangleMeshTest {
 	}	
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#translate(br.odb.utils.math.Vec3)}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#translate(br.odb.utils.math.Vec3)}.
 	 */
 	@Test
 	public void testTranslate() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		mesh1.translate( new Vec3( 3.0f, 0.0f, 0.0f ) );
@@ -201,13 +203,13 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#getVertexData()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#getVertexData()}.
 	 */
 	@Test
 	public void testGetVertexData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		mesh1.translate( new Vec3( 5.0f, 0.0f, 0.0f ) );
@@ -235,13 +237,13 @@ public class GeneralTriangleMeshTest {
 	}
 
 	/**
-	 * Test method for {@link br.odb.libstrip.GeneralTriangleMesh#getColorData()}.
+	 * Test method for {@link br.odb.libstrip.TriangleMesh#getColorData()}.
 	 */
 	@Test
 	public void testGetColorData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		GeneralTriangleMesh mesh1 = new GeneralTriangleMesh( "mesh1" );
+		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		float[] colour = mesh1.getColorData();
 		float[] colour2 = mesh1.getColorData();

@@ -11,7 +11,7 @@ import br.odb.utils.math.Vec3;
  * @author Daniel "Monty" Monteiro
  * 
  */
-public class GeneralTriangleMesh implements Serializable {
+public class TriangleMesh implements Serializable {
 	/**
 	 * 
 	 */
@@ -33,7 +33,7 @@ public class GeneralTriangleMesh implements Serializable {
 	 * 
 	 * @param mesh
 	 */
-	public GeneralTriangleMesh(String name, GeneralTriangleMesh mesh) {
+	public TriangleMesh(String name, TriangleMesh mesh) {
 
 		this(name);
 
@@ -42,7 +42,7 @@ public class GeneralTriangleMesh implements Serializable {
 		}
 	}
 
-	public GeneralTriangleMesh(String name) {
+	public TriangleMesh(String name) {
 		this.name = name;
 	}
 
@@ -105,10 +105,10 @@ public class GeneralTriangleMesh implements Serializable {
 		if (obj == null) {
 			return false;
 		}
-		if ( !( obj instanceof GeneralTriangleMesh ) ) {
+		if ( !( obj instanceof TriangleMesh ) ) {
 			return false;
 		}
-		GeneralTriangleMesh other = (GeneralTriangleMesh) obj;
+		TriangleMesh other = (TriangleMesh) obj;
 		if (!faces.equals(other.faces)) {
 			return false;
 		}

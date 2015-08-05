@@ -40,8 +40,12 @@ public class MaterialTest {
 				"shader-program");
 		Material m1 = new Material("test1", new Color(255, 128, 64),
 				"tex0.png", "shader-program");
+		Material m2 = new Material("test1", new Color(255, 128, 64),
+				"tex0.png", null );		
 		Material m3 = new Material("test3", new Color(64, 128, 255),
 				"tex0.png", null);
+		Material m4 = new Material("test1", new Color(255, 128, 64),
+				"tex0.png", null );
 		Material m5 = new Material("test5", new Color(255, 128, 64), null,
 				null);
 		Material m6 = new Material(null, new Color(255, 128, 64), "tex0.png",
@@ -49,6 +53,9 @@ public class MaterialTest {
 		
 		Material m7 = new Material( "test314", new Color(137, 137, 137), "tex2.png",
 				"shader-program");
+		Material m8 = new Material( "test314", new Color(137, 137, 137), "tex2.png",
+				"other-shader-program");
+
 
 		Assert.assertTrue(m.equals(m));
 		Assert.assertTrue(m.equals(m1));
@@ -56,14 +63,16 @@ public class MaterialTest {
 		Assert.assertFalse(m1.equals(null));
 		Assert.assertFalse(m1.equals("not a material"));
 		Assert.assertFalse(m1.equals(m3));
+		Assert.assertFalse(m7.equals(m8));
 		Assert.assertFalse(m1.equals(m5));
-		
+		Assert.assertTrue(m4.equals(m2));
 		Assert.assertFalse(m3.equals(m1));
 		Assert.assertFalse(m5.equals(m1));
 		
 		Assert.assertFalse(m3.equals(m5));
 		Assert.assertFalse(m3.equals(m6));
 		
+		Assert.assertFalse(m2.equals(m1));
 		Assert.assertFalse(m5.equals(m3));
 		Assert.assertFalse(m5.equals(m6));
 		
