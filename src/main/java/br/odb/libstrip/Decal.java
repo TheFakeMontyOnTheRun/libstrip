@@ -3,17 +3,17 @@
  */
 package br.odb.libstrip;
 
+import br.odb.gameutils.Color;
+import br.odb.gameutils.Direction;
+import br.odb.gameutils.FileServerDelegate;
+import br.odb.gameutils.math.Vec3;
+
 import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import br.odb.utils.Color;
-import br.odb.utils.Direction;
-import br.odb.utils.FileServerDelegate;
-import br.odb.utils.math.Vec3;
 
 /**
  * @author monty
@@ -329,7 +329,7 @@ public class Decal extends TriangleMesh {
 		return toReturn;
 	}
 	
-	public Decal( FileServerDelegate fileServer, String decalName, String decalFilename, float screenWidth, float screenHeight ) {
+	public Decal(FileServerDelegate fileServer, String decalName, String decalFilename, float screenWidth, float screenHeight ) {
 		
 		super( decalFilename );
 		

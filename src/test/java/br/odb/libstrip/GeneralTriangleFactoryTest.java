@@ -3,12 +3,12 @@
  */
 package br.odb.libstrip;
 
+import br.odb.gameutils.Color;
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import br.odb.libstrip.builders.GeneralTriangleFactory;
-import br.odb.utils.Color;
 
 /**
  * @author monty

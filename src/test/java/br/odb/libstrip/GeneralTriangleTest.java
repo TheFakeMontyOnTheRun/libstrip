@@ -1,12 +1,11 @@
 package br.odb.libstrip;
 
+import br.odb.gameutils.Color;
+import br.odb.gameutils.Direction;
+import br.odb.gameutils.math.Vec3;
 import junit.framework.Assert;
 
 import org.junit.Test;
-
-import br.odb.utils.Color;
-import br.odb.utils.Direction;
-import br.odb.utils.math.Vec3;
 
 public class GeneralTriangleTest {
 

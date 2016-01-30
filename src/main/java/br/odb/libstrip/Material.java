@@ -1,8 +1,8 @@
 package br.odb.libstrip;
 
-import java.io.Serializable;
+import br.odb.gameutils.Color;
 
-import br.odb.utils.Color;
+import java.io.Serializable;
 
 public class Material implements Serializable {
 

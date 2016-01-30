@@ -1,10 +1,10 @@
 package br.odb.libstrip;
 
+import br.odb.gameutils.math.Vec3;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.odb.utils.math.Vec3;
 
 /**
  * 

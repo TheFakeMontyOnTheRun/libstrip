@@ -1,8 +1,8 @@
 package br.odb.libstrip.builders;
 
+import br.odb.gameutils.math.Vec3;
 import br.odb.libstrip.GeneralTriangle;
 import br.odb.libstrip.Material;
-import br.odb.utils.math.Vec3;
 
 public class GeneralTriangleFactory {
 

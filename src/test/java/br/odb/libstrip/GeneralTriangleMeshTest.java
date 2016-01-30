@@ -3,13 +3,13 @@
  */
 package br.odb.libstrip;
 
+import br.odb.gameutils.Color;
+import br.odb.gameutils.math.Vec3;
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import br.odb.libstrip.builders.GeneralTriangleFactory;
-import br.odb.utils.Color;
-import br.odb.utils.math.Vec3;
 
 /**
  * @author monty
@@ -33,9 +33,6 @@ public class GeneralTriangleMeshTest {
 		Assert.assertEquals( 0, mesh1.faces.size() );		
 	}
 
-	/**
-	 * Test method for {@link br.odb.libstrip.TriangleMesh#GeneralTriangleMesh(java.lang.String, br.odb.libstrip.TriangleMesh)}.
-	 */
 	@Test
 	public void testGeneralTriangleMeshStringGeneralTriangleMesh() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
@@ -52,9 +49,6 @@ public class GeneralTriangleMeshTest {
 		}
 	}
 
-	/**
-	 * Test method for {@link br.odb.libstrip.TriangleMesh#GeneralTriangleMesh(java.lang.String)}.
-	 */
 	@Test
 	public void testGeneralTriangleMeshString() {
 		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
@@ -148,9 +142,6 @@ public class GeneralTriangleMeshTest {
 		
 	}	
 
-	/**
-	 * Test method for {@link br.odb.libstrip.TriangleMesh#translate(br.odb.utils.math.Vec3)}.
-	 */
 	@Test
 	public void testTranslate() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();

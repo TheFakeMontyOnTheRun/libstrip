@@ -3,11 +3,10 @@
  */
 package br.odb.libstrip;
 
+import br.odb.gameutils.Color;
 import junit.framework.Assert;
 
 import org.junit.Test;
-
-import br.odb.utils.Color;
 
 /**
  * @author Daniel "Monty" Monteiro
@@ -15,11 +14,6 @@ import br.odb.utils.Color;
  */
 public class MaterialTest {
 
-	/**
-	 * Test method for
-	 * {@link br.odb.libstrip.Material#Material(java.lang.String, int, int, int, java.lang.String, java.lang.String, java.lang.String)}
-	 * .
-	 */
 	@Test
 	public void testConstructor() {
 		Material m = new Material("test1", new Color(255, 128, 64), "tex0.png",
@@ -29,10 +23,6 @@ public class MaterialTest {
 		Assert.assertEquals("shader-program", m.shaderProgram);
 	}
 
-	/**
-	 * Test method for
-	 * {@link br.odb.libstrip.Material#equals(br.odb.libstrip.Material)}.
-	 */
 	@Test
 	public void testEqualsAndHashcode() {
 		Material m;
