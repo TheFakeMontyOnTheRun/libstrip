@@ -237,7 +237,7 @@ public class Decal extends TriangleMesh {
 						continue;
 					
 					t = new GeneralTriangle();
-					t.material = new Material( null, new Color(), null, null );
+					t.material = Material.makeWithColor(new Color());
 					t.material.mainColor.a = (edge[0] + (-Byte.MIN_VALUE));
 					t.material.mainColor.r = (edge[1] + (-Byte.MIN_VALUE));
 					t.material.mainColor.g = (edge[2] + (-Byte.MIN_VALUE));
@@ -261,7 +261,7 @@ public class Decal extends TriangleMesh {
 					scratch.add( t );
 					
 					t = new GeneralTriangle();
-					t.material = new Material( null, new Color(), null, null );
+					t.material = Material.makeWithColor(new Color());
 					t.material.mainColor.a = (edge[0] + (-Byte.MIN_VALUE));
 					t.material.mainColor.r = (edge[1] + (-Byte.MIN_VALUE));
 					t.material.mainColor.g = (edge[2] + (-Byte.MIN_VALUE));
@@ -297,7 +297,7 @@ public class Decal extends TriangleMesh {
 				is.read(bytes);
 				
 				t = new GeneralTriangle();
-				t.material = new Material( null, new Color(), null, null );
+				t.material = Material.makeWithColor(new Color());
 				t.material.mainColor.a = (bytes[0] + (-Byte.MIN_VALUE));
 				t.material.mainColor.r = (bytes[1] + (-Byte.MIN_VALUE));
 				t.material.mainColor.g = (bytes[2] + (-Byte.MIN_VALUE));

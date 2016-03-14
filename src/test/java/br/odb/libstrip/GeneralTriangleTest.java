@@ -12,7 +12,7 @@ public class GeneralTriangleTest {
 	public GeneralTriangle makeTestSubject() {
 		GeneralTriangle gt = new GeneralTriangle();
 		
-		gt.material = new Material( null, new Color( 0xFF00FF00 ), null, null );
+		gt.material = Material.makeWithColor( new Color( 0xFF00FF00 ) );
 		
 		gt.x0 = 0.0f;
 		gt.y0 = 0.0f;
@@ -80,7 +80,7 @@ public class GeneralTriangleTest {
 
 		Assert.assertFalse( gt.hashCode() == gt2.hashCode() );
 		
-		gt2.material = new Material( null, new Color( 0xFFFFFF00 ), null, null );
+		gt2.material = Material.makeWithColor( new Color( 0xFFFFFF00 ));
 		
 		Assert.assertFalse( gt.equals( gt2 ) );
 		Assert.assertFalse( gt2.equals( gt ) );

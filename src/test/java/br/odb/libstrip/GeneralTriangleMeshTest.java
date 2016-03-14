@@ -25,10 +25,10 @@ public class GeneralTriangleMeshTest {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
 		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+
 		mesh1.clear();
 		Assert.assertEquals( 0, mesh1.faces.size() );		
 	}
@@ -36,8 +36,8 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGeneralTriangleMeshStringGeneralTriangleMesh() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 		TriangleMesh mesh2;
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
@@ -61,11 +61,11 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testToString() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 
 		String fromString = mesh1.toString();
 		
@@ -82,11 +82,11 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetCenter() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, material, null ) );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 
 		Assert.assertEquals( new Vec3( 0.5f, 0.5f, 0.0f ), mesh1.getCenter() );
 	}
@@ -97,8 +97,8 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testHashCodeAndEquals() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 		TriangleMesh mesh2;
 		TriangleMesh mesh3 = new TriangleMesh( null ) ;
 		TriangleMesh mesh4 = new TriangleMesh( null ) ;
@@ -145,8 +145,6 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testTranslate() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		mesh1.translate( new Vec3( 3.0f, 0.0f, 0.0f ) );
@@ -164,6 +162,8 @@ public class GeneralTriangleMeshTest {
 		Assert.assertEquals( 0.0f, mesh1.faces.get( 0 ).z1 );
 		Assert.assertEquals( 0.0f, mesh1.faces.get( 0 ).z2 );
 				
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 		float[] data = mesh1.getVertexData();
 
 		mesh1.translate( new Vec3( 2.0f, 0.0f, 0.0f ) );
@@ -199,11 +199,11 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetVertexData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
 		mesh1.translate( new Vec3( 5.0f, 0.0f, 0.0f ) );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 		float[] data = mesh1.getVertexData();
 
 		Assert.assertEquals( mesh1.faces.get( 0 ).x0, data[ 0 ] );
@@ -233,9 +233,9 @@ public class GeneralTriangleMeshTest {
 	@Test
 	public void testGetColorData() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		Material material = new Material( null, new Color( 0xFFFF0000 ), null, null );
-		TriangleMesh mesh1 = new TriangleMesh( "mesh1" );
 		mesh1.faces.add( factory.makeTrig( 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, material, null ) );
+		Material material = Material.makeWithColor(new Color(0xFFFF0000));
+		TriangleMesh mesh1 = new TriangleMesh("mesh1");
 		float[] colour = mesh1.getColorData();
 		float[] colour2 = mesh1.getColorData();
 		
