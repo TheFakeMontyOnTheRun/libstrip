@@ -7,8 +7,7 @@ import br.odb.libstrip.Material;
 public class GeneralTriangleFactory {
 
 	public GeneralTriangle makeTrig(float x, float y, float z, float x2, float y2,
-			float z2, float x3, float y3, float z3, Material material,
-			Vec3 lightDirection) {
+			float z2, float x3, float y3, float z3, Material material) {
 
 		GeneralTriangle toReturn = new GeneralTriangle();
 		

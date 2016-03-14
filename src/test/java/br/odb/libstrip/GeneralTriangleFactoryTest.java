@@ -19,8 +19,8 @@ public class GeneralTriangleFactoryTest {
 	@Test
 	public void testMakeTrig() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
-		GeneralTriangle t = factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, material, null );
 		Material material = Material.makeWithColor( new Color( 0xFF00FF00 ));
+		GeneralTriangle t = factory.makeTrig( 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, material);
 		Assert.assertEquals( 0.0f, t.x0 );
 		Assert.assertEquals( 0.0f, t.y0 );
 		Assert.assertEquals( 0.0f, t.z0 );
