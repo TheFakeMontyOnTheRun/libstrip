@@ -1,3 +1,26 @@
+/.idea/.name
+/.idea/compiler.xml
+/.idea/copyright/profiles_settings.xml
+/.idea/encodings.xml
+/.idea/libraries/Maven__br_odb_gameutils_1_0_SNAPSHOT.xml
+/.idea/libraries/Maven__junit_junit_4_10.xml
+/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/libstrip.iml
+/src/main/main.iml
+/src/test/test.iml
+/target/surefire-reports/TEST-br.odb.libstrip.GeneralTriangleFactoryTest.xml
+/target/surefire-reports/TEST-br.odb.libstrip.GeneralTriangleMeshTest.xml
+/target/surefire-reports/TEST-br.odb.libstrip.GeneralTriangleTest.xml
+/target/surefire-reports/TEST-br.odb.libstrip.MaterialTest.xml
+/target/surefire-reports/br.odb.libstrip.GeneralTriangleFactoryTest.txt
+/target/surefire-reports/br.odb.libstrip.GeneralTriangleMeshTest.txt
+/target/surefire-reports/br.odb.libstrip.GeneralTriangleTest.txt
+/target/surefire-reports/br.odb.libstrip.MaterialTest.txt
 *.class
 
 # Mobile Tools for Java (J2ME)
