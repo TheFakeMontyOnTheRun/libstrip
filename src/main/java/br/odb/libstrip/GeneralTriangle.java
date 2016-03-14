@@ -30,13 +30,21 @@ public class GeneralTriangle implements Serializable {
 	public float nx;
 	public float ny;
 	public float nz;
-	
+	private float[] mTextureCoordinates =  new float[]{ 0.0f, 0.0f,
+														0.0f, 0.0f,
+														0.0f, 0.0f
+														};
+
 	public void flush() {
 	}
 
 	public float[] getVertexData() {
 		return new float[] { x0, y0, z0, x1, y1, z1, x2, y2, z2 };
 	}
+
+	public float[] getTextureCoordinates() { return mTextureCoordinates; }
+
+	public void setTextureCoordinates(float[] textureCoordinates) { mTextureCoordinates = textureCoordinates; }
 
 	public GeneralTriangle makeCopy() {
 		
