@@ -72,8 +72,7 @@ public class GeneralTriangle implements Serializable {
 	public Vec3 makeNormal() {
 		Vec3 v1 = new Vec3( x1 - x0, y1 - y0, z1 - z0 );
 		Vec3 v2 = new Vec3( x2 - x0, y2 - y0, z2 - z0 );
-		Vec3 v3 = v1.crossProduct( v2 ).normalized();
-		return v3;
+		return v1.crossProduct( v2 ).normalized();
 	}
 
 	public void flatten(float z) {
@@ -112,7 +111,7 @@ public class GeneralTriangle implements Serializable {
 		if (obj == null) {
 			return false;
 		}
-		if ( !( obj instanceof GeneralTriangle ) ) {
+		if (!(obj instanceof GeneralTriangle)) {
 			return false;
 		}
 		GeneralTriangle other = (GeneralTriangle) obj;
@@ -144,12 +143,6 @@ public class GeneralTriangle implements Serializable {
 		if (Float.floatToIntBits(z0) != Float.floatToIntBits(other.z0)) {
 			return false;
 		}
-		if (Float.floatToIntBits(z1) != Float.floatToIntBits(other.z1)) {
-			return false;
-		}
-		if (Float.floatToIntBits(z2) != Float.floatToIntBits(other.z2)) {
-			return false;
-		}
-		return true;
-	}	
+		return Float.floatToIntBits(z1) == Float.floatToIntBits(other.z1) && Float.floatToIntBits(z2) == Float.floatToIntBits(other.z2);
+	}
 }

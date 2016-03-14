@@ -17,7 +17,7 @@ public class TriangleMesh implements Serializable {
 	 */
 	private static final long serialVersionUID = 3375701151469728552L;
 	
-	final public List<GeneralTriangle> faces = new ArrayList<GeneralTriangle>();
+	final public List<GeneralTriangle> faces = new ArrayList<>();
 	
 	final public String name;
 	private float[] cachedVertexData;
@@ -54,10 +54,10 @@ public class TriangleMesh implements Serializable {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append( "<name>" + name + "</name>\n" );
+		sb.append("<name>").append(name).append("</name>\n");
 
 		for (GeneralTriangle isf : faces) {
-			sb.append( "\n" + isf );
+			sb.append("\n").append(isf);
 		}
 		return sb.toString();
 	}
@@ -235,7 +235,7 @@ public class TriangleMesh implements Serializable {
 
 		for (int c = 0; c < cachedVertexData.length; c += 9) {
 
-			t = (GeneralTriangle) faces.get(c / 9);
+			t = faces.get(c / 9);
 			cachedVertexData[c] = t.x0;
 			cachedVertexData[c + 1] = t.y0;
 			cachedVertexData[c + 2] = t.z0;
@@ -269,7 +269,7 @@ public class TriangleMesh implements Serializable {
 
 			for (int c = 0; c < faces.size(); ++c) {
 
-				t = (GeneralTriangle) faces.get(c);
+				t = faces.get(c);
 				colourData = t.material.mainColor.getFloatData();
 				cachedColorData[(c * 4)] = colourData[ 0 ];
 				cachedColorData[(c * 4) + 1] = colourData[ 1 ];

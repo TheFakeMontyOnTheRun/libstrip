@@ -16,9 +16,6 @@ import br.odb.libstrip.builders.GeneralTriangleFactory;
  */
 public class GeneralTriangleFactoryTest {
 
-	/**
-	 * Test method for {@link br.odb.libstrip.builders.GeneralTriangleFactory#makeTrig(float, float, float, float, float, float, float, float, float, int, br.odb.utils.math.Vec3)}.
-	 */
 	@Test
 	public void testMakeTrig() {
 		GeneralTriangleFactory factory = new GeneralTriangleFactory();
