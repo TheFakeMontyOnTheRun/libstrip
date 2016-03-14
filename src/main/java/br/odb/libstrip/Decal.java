@@ -5,7 +5,6 @@ package br.odb.libstrip;
 
 import br.odb.gameutils.Color;
 import br.odb.gameutils.Direction;
-import br.odb.gameutils.FileServerDelegate;
 import br.odb.gameutils.math.Vec3;
 
 import java.io.DataInputStream;
@@ -329,26 +328,19 @@ public class Decal extends TriangleMesh {
 
 		return toReturn;
 	}
-	
-	public Decal(FileServerDelegate fileServer, String decalName, String decalFilename, float screenWidth, float screenHeight ) {
-		
-		super( decalFilename );
-		
-		try {			
-			InputStream is = fileServer.openAsInputStream( decalFilename );
-			
-			GeneralTriangle[] trigs = loadFrom( is, 0.0f, screenWidth, screenHeight );
-			
-			for ( int c = 0; c < trigs.length; ++c ) {
-				this.faces.add( trigs[ c ] );
-			}
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	public Decal(InputStream is, String decalName, String decalFilename, float screenWidth, float screenHeight) {
+
+		super(decalFilename);
+
+		try {
+
+			GeneralTriangle[] trigs = loadFrom(is, 0.0f, screenWidth, screenHeight);
+
+			Collections.addAll(this.faces, trigs);
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
 }
