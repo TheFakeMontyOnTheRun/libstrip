@@ -25,8 +25,6 @@ public class GeneralTriangle implements Serializable {
 	public float x2;
 	public float y2;
 	public float z2;
-	public float u;
-	public float v;
 	public float nx;
 	public float ny;
 	public float nz;
